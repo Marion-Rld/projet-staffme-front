@@ -1,0 +1,28 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 200px;
+}
+
+.sidenav .mat-toolbar {
+  background: inherit;
+}
+
+.mat-mdc-list-item:not(:first-child){
+  margin-top: 40px;
+
+}
+
+.mat-mdc-list-item{
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 400;
+  color: white;
+}
+
+.mat-drawer{
+  background-color: #264653;
+}
