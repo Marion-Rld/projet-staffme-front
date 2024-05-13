@@ -15,11 +15,16 @@ export class RegisterComponent {
   lastname: string = '';
   email: string = '';
   password: string = '';
+  confirmPassword: string = '';
 
   constructor() { }
 
   onSubmit() {
     console.log('Form submitted');
+    console.log('First Name: ' + this.firstname);
+    console.log('Last Name: ' + this.lastname);
+    console.log('Email: ' + this.email);
+    console.log('Password: ' + this.password)
   }
 
 }
