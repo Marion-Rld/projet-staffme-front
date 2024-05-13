@@ -1,0 +1,38 @@
+<div class="register-page">
+    <div class="register-branding">
+      <img src="assets/images/logos/staffme-logo.png" alt="Staffme Logo" class="logo">
+    </div>
+    <div class="register-container">
+      <h1>Inscription</h1>
+      <form class="register-form" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Nom</mat-label>
+            <input matInput placeholder="Entrez votre nom" [(ngModel)]="lastname" name="lastname" required>
+          </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Prénom</mat-label>
+            <input matInput placeholder="Entrez votre prénom" [(ngModel)]="firstname" name="firstname" required>
+          </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Adresse email</mat-label>
+          <input matInput placeholder="Entrez votre email" [(ngModel)]="email" name="email" required>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput type="password" placeholder="Entrez votre mot de passe" [(ngModel)]="password" name="password" required>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Confirmation de mot de passe</mat-label>
+            <input matInput type="password" placeholder="Confirmez votre mot de passe" [(ngModel)]="password" name="password" required>
+          </mat-form-field>
+
+        <button mat-raised-button color="primary" class="register-button" type="submit">VALIDER</button>
+      </form>
+    </div>
+  </div>
+  
