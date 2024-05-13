@@ -1,6 +1,4 @@
 $login-background-color: #264653;
-$login-button-color-desktop: #264653;
-$login-button-color-mobile: #2a9d8f;
 $login-link-color: #2a9d8f;
 
 .register-page {
@@ -53,7 +51,6 @@ mat-form-field {
 
 .register-button {
   width: 100%;
-  background-color: $login-button-color-mobile;
   color: white;
   height: 48px;
   margin-top: 10px;
@@ -133,7 +130,6 @@ mat-form-field {
   
   .register-button {
     width: 100%; 
-    background-color: $login-button-color-desktop;
     color: white;
   }
   

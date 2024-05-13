@@ -1,33 +1,128 @@
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$projet-staffme-front-primary: mat.define-palette(mat.$indigo-palette);
-$projet-staffme-front-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$black: #000000;
+$white: #ffffff;
+$custom-primary: #264653; 
+$custom-accent: #2A9D8F; 
+$custom-warn: #E76F51; 
+$custom-secondary: #E9C46A;
 
-// The warn palette is optional (defaults to red).
-$projet-staffme-front-warn: mat.define-palette(mat.$red-palette);
+$custom-brand-primary: (
+  50:  #E6EEF1, 
+  100: #C0D6DE, 
+  200: #97BBC8, 
+  300: #6F9FB3, 
+  400: #507E9A, 
+  500: $custom-primary, // Couleur originale
+  600: #213D4A, 
+  700: #1D3340, 
+  800: #192937, 
+  900: #141F2D, 
+  contrast: (
+    50: $black, 
+    100: $black, 
+    200: $black, 
+    300: $white, 
+    400: $white, 
+    500: $white, 
+    600: $white, 
+    700: $white, 
+    800: $white, 
+    900: $white
+  )
+);
+
+$custom-brand-accent: (
+  50:  #E6F0EE, 
+  100: #C0DAD6, 
+  200: #99C3BF, 
+  300: #71ACAA, 
+  400: #53929A, 
+  500: $custom-accent, // Couleur originale
+  600: #259085, 
+  700: #1F7A7A, 
+  800: #1A6F70, 
+  900: #14605F, 
+  contrast: (
+    50: $black, 
+    100: $black, 
+    200: $black, 
+    300: $black, 
+    400: $black, 
+    500: $white, 
+    600: $white, 
+    700: $white, 
+    800: $white, 
+    900: $white
+  )
+);
+
+$custom-brand-secondary: (
+    50:  #F4F0E9, 
+    100: #EDE0C8, 
+    200: #E5C7A2, 
+    300: #DFAE7C, 
+    400: #D99D5F, 
+    500: $custom-secondary, // Couleur originale
+    600: #D18D4F, 
+    700: #B87445, 
+    800: #9F5A3B, 
+    900: #83482F, 
+    contrast: (
+      50: $black, 
+      100: $black, 
+      200: $black, 
+      300: $black, 
+      400: $black, 
+      500: $white, 
+      600: $white, 
+      700: $white, 
+      800: $white, 
+      900: $white
+    )  
+);
+
+$custom-brand-warn: (
+    50:  #FBE9E5, 
+    100: #F7C9B9, 
+    200: #F29A7D, 
+    300: #ED6A41, 
+    400: #EA4520, 
+    500: $custom-warn, // Couleur originale
+    600: #E61D00, 
+    700: #D41A00, 
+    800: #C21800, 
+    900: #A91500, 
+    contrast: (
+        50: $black, 
+        100: $black, 
+        200: $black, 
+        300: $white, 
+        400: $white, 
+        500: $white, 
+        600: $white, 
+        700: $white, 
+        800: $white, 
+        900: $white
+    )
+);
+
+$custom-primary: mat.define-palette($custom-brand-primary);
+$custom-accent: mat.define-palette($custom-brand-accent);
+$custom-warn: mat.define-palette($custom-brand-warn);
+$custom-secondary: mat.define-palette($custom-brand-secondary);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
 $projet-staffme-front-theme: mat.define-light-theme((
   color: (
-    primary: $projet-staffme-front-primary,
-    accent: $projet-staffme-front-accent,
-    warn: $projet-staffme-front-warn,
+    primary: $custom-primary,
+    accent: $custom-accent,
+    warn: $custom-warn,
+    secondary: $custom-secondary
   ),
-  typography: mat.define-typography-config(),
-  density: 0
+  typography: mat.define-typography-config()
 ));
 
 // Include theme styles for core and each component used in your app.
