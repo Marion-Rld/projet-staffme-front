@@ -16,7 +16,7 @@ export class RegisterComponent {
     firstname: new FormControl('', [Validators.required, Validators.minLength(2)]),
     lastname: new FormControl('', [Validators.required, Validators.minLength(2)]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)]),
+    password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d\s])[A-Za-z\d\s!@#$%^&*()_+[\]{};':"\\|,.<>?`~\-+=]{8,}$/)]), // Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character
     confirmPassword: new FormControl('', [Validators.required])
   });
 
@@ -29,8 +29,13 @@ export class RegisterComponent {
   }
 
   passwordsMatch(): boolean {
-    const pass = this.registerForm.get('password')?.value; 
-    const confirmPass = this.registerForm.get('confirmPassword')?.value; 
+    const pass = this.registerForm.get('password')?.value;
+    const confirmPass = this.registerForm.get('confirmPassword')?.value;
+    if (pass !== confirmPass) {
+      this.registerForm.get('confirmPassword')?.setErrors({ mismatch: true });
+    } else {
+      this.registerForm.get('confirmPassword')?.setErrors(null);
+    }
     return pass === confirmPass;
   }
 }
