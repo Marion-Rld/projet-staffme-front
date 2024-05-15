@@ -17,6 +17,14 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/auth-api/forgot-password`, { email });
   }
 
+  resetPassword(token: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth-api/reset-password`, { token, password });
+  }
+
+  login(credentials: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth-api/login`, credentials);
+  }
+
   // USERS
   getUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/users-api/users`);
