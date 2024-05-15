@@ -12,6 +12,11 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
+  //AUTH 
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth-api/forgot-password`, { email });
+  }
+
   // USERS
   getUsers(): Observable<any> {
     return this.http.get(`${this.apiUrl}/users-api/users`);
