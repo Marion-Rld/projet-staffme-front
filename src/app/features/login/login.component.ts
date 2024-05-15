@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule, FormGroup,
+import { FormGroup,
   FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-  import { CommonModule } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
