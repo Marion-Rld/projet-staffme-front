@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import {
@@ -8,21 +9,22 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [MatInputModule, MatButtonModule, ReactiveFormsModule, CommonModule],
+  imports: [MatInputModule, MatButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
   registerForm = new FormGroup({
-    firstname: new FormControl('', [
+    firstName: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
     ]),
-    lastname: new FormControl('', [
+    lastName: new FormControl('', [
       Validators.required,
       Validators.minLength(2),
     ]),
@@ -36,9 +38,20 @@ export class RegisterComponent {
     confirmPassword: new FormControl('', [Validators.required]),
   });
 
+  constructor(private apiService: ApiService) {
+    console.log('RegisterComponent constructor');
+  }
+
   onSubmit() {
-    if (this.registerForm.valid) {
-      console.log('Form Data:', this.registerForm.value);
+    if (this.registerForm.valid && this.passwordsMatch()) {
+      this.apiService.addUser(this.registerForm.value).subscribe({
+        next: (response) => {
+          console.log('User added successfully', response);
+        },
+        error: (error) => {
+          console.error('Failed to add user', error);
+        }
+      });
     } else {
       console.log('Form is not valid');
     }
