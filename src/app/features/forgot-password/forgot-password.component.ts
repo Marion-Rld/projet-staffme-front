@@ -1,24 +1,31 @@
 import { Component } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-forgot-password',
   standalone: true,
-  imports: [MatButtonModule, MatInputModule, FormsModule, ReactiveFormsModule],
+  imports: [MatButtonModule, MatInputModule, CommonModule, ReactiveFormsModule],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss'
 })
 export class ForgotPasswordComponent {
-  email: string = '';
+  forgotPasswordForm = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email])
+  });
 
   constructor() {
     console.log('ForgotPasswordComponent constructor');
   }
 
   onSubmit() {
-    console.log('ForgotPasswordComponent onSubmit', this.email);
+    if (this.forgotPasswordForm.valid) {
+      console.log('Form Data:', this.forgotPasswordForm.value);
+    } else {
+      console.log('Form is not valid');
+    }
   }
 
 }

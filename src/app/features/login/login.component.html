@@ -4,20 +4,26 @@
   </div>
   <div class="login-container">
     <h1>Connexion</h1>
-    <form class="login-form" (ngSubmit)="onSubmit()">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="fill">
         <mat-label>Adresse email</mat-label>
-        <input matInput placeholder="Entrez votre email" [(ngModel)]="email" name="email" required>
+        <input matInput placeholder="Entrez votre email" formControlName="email" required>
+        <mat-error  *ngIf="loginForm.get('email')?.errors?.['required']">
+          L'email est obligatoire.
+        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="fill">
         <mat-label>Mot de passe</mat-label>
-        <input matInput type="password" placeholder="Entrez votre mot de passe" [(ngModel)]="password" name="password" required>
+        <input matInput type="password" placeholder="Entrez votre mot de passe" formControlName="password" required>
+        <mat-error  *ngIf="loginForm.get('password')?.errors?.['required']">
+          Le mot de passe est obligatoire.
+        </mat-error>
       </mat-form-field>
       <div class="actions">
         <a href="/forgot-password" class="forgot-password">Mot de passe oublié ?</a>
       </div>
-      <button mat-raised-button color="accent" class="login-button" type="submit">VALIDER</button>
+      <button mat-raised-button color="accent" class="login-button" type="submit" [disabled]="!loginForm.valid">VALIDER</button>
     </form>
     <div class="actions">
       <p class="no-account">Pas de compte ?  <a href="/register" class="register-link">Inscrivez-vous</a></p>
