@@ -18,13 +18,13 @@
         <input
           matInput
           placeholder="Entrez votre nom"
-          formControlName="lastname"
+          formControlName="lastName"
           required
         />
-        <mat-error  *ngIf="registerForm.get('lastname')?.errors?.['required']">
+        <mat-error  *ngIf="registerForm.get('lastName')?.errors?.['required']">
           Le nom est obligatoire.
         </mat-error>
-        <mat-error *ngIf="registerForm.get('lastname')?.errors?.['minlength']">
+        <mat-error *ngIf="registerForm.get('lastName')?.errors?.['minlength']">
           Le nom doit contenir au moins 2 caractères.
         </mat-error>
       </mat-form-field>
@@ -34,13 +34,13 @@
         <input
           matInput
           placeholder="Entrez votre prénom"
-          formControlName="firstname"
+          formControlName="firstName"
           required
         />
-        <mat-error  *ngIf="registerForm.get('firstname')?.errors?.['required']">
+        <mat-error  *ngIf="registerForm.get('firstName')?.errors?.['required']">
           Le prénom est obligatoire.
         </mat-error>
-        <mat-error *ngIf="registerForm.get('firstname')?.errors?.['minlength']">
+        <mat-error *ngIf="registerForm.get('firstName')?.errors?.['minlength']">
           Le prénom doit contenir au moins 2 caractères.
         </mat-error>
       </mat-form-field>
