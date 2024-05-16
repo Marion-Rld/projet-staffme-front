@@ -11,7 +11,7 @@ jobs:
     name: 'Snyk Code Scan'
     runs-on: ubuntu-latest
     env:
-      SNYK_TOKEN: b4d6e80a-f680-4b39-b654-361208c42847
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
     steps:
       # Checkout Code
