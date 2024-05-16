@@ -3,6 +3,7 @@
 
 $black: #000000;
 $white: #ffffff;
+$light-grey: #e0e7ea;
 $custom-primary: #264653; 
 $custom-accent: #2A9D8F; 
 $custom-warn: #E76F51; 
@@ -136,5 +137,5 @@ html, body {
     padding: 0;
     font-family: Roboto;
 }
-html, body { height: 100%; }
+html, body { height: 100%; background-color: $light-grey; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

@@ -1,0 +1,23 @@
+.top-bar {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 25px;
+    background-color: #f0f0f0;
+  }
+  
+  .title p {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .user-info span {
+    margin-right: 10px;
+  }
+
+  @media (max-width: 960px) {
+    .top-bar {
+      display: none;
+    }
+  }
