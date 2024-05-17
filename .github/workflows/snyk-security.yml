@@ -53,7 +53,7 @@ jobs:
 
        # Authenticate to Snyk
       - name: Authenticate Snyk
-        run: snyk auth ${{ env.SNYK_TOKEN }}
+        run: snyk auth 9cecb387-2a9f-43f5-8591-69abcd398ec1
 
         # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
         # Use || true to not fail the pipeline
