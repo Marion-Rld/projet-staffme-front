@@ -49,11 +49,11 @@ jobs:
 
         env:
           # This is where you will need to introduce the Snyk API token created with your Snyk account
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: b4d6e80a-f680-4b39-b654-361208c42847
 
        # Authenticate to Snyk
       - name: Authenticate Snyk
-        run: snyk auth ${SNYK_TOKEN}
+        run: snyk auth ${{ env.SNYK_TOKEN }}
 
         # Runs Snyk Code (SAST) analysis and uploads result into GitHub.
         # Use || true to not fail the pipeline
