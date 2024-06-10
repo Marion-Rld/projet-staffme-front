@@ -1,0 +1,157 @@
+$login-background-color: #264653;
+$login-link-color: #2a9d8f;
+
+.login-page {
+  display: flex;
+  flex-direction: column;  
+  min-height: 100vh;
+  align-items: center;
+  background-color: $login-background-color;
+}
+
+.login-branding {
+  background-color: $login-background-color;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.logo {
+  max-width: 150px;  
+}
+
+.login-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+h1 {
+  color: white;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 300px; 
+  padding: 20px;
+  box-shadow: none;
+  border-radius: 8px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.login-button {
+  width: 100%;
+  color: white;
+  height: 48px;
+  margin-top: 10px;
+}
+
+.actions {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.forgot-password, .register-link {
+  color: $login-link-color;
+  margin-bottom: 10px;
+  font-size: small;
+}
+
+.no-account {
+  font-size: small;
+  color: white;
+}
+
+@media (min-width: 768px) {  /* Styles pour les écrans plus larges */
+  .login-page {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    background-color: white;
+  }
+  
+  .login-branding {
+    background-color: $login-background-color;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .logo {
+    max-width: 500px;
+  }
+  
+  .login-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    height: 100vh;
+  }
+  
+  h1 {
+    color: black;
+    margin-bottom: 20px;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 320px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  
+  .login-button {
+    width: 100%; 
+    color: white;
+  }
+  
+  .actions {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 320px;
+    align-items: center;
+  }
+  
+  .forgot-password, .register-link, .no-account {
+    font-size: small;
+  }
+  
+  .forgot-password {
+    margin-bottom: 10px;
+  }
+  
+  .forgot-password, .register-link {
+    color: $login-link-color;
+  }
+
+  .no-account {
+    color: black;
+  }
+}
