@@ -12,10 +12,10 @@
 
 <div class="mobile-menu-dialog" [ngClass]="{'open': showMobileMenu}">
   <ul class="mobile-nav-list">
-    <li><a href="/dashboard">Tableau de bord</a></li>
-    <li><a href="/projects">Projets</a></li>
-    <li><a href="/teams">Équipes</a></li>
-    <li><a href="/collaborators">Collaborateurs</a></li>
+    <li><a routerLink="/dashboard" routerLinkActive="active-link">Tableau de bord</a></li>
+    <li><a routerLink="/projects" routerLinkActive="active-link">Projets</a></li>
+    <li><a routerLink="/teams" routerLinkActive="active-link">Équipes</a></li>
+    <li><a routerLink="/collaborators" routerLinkActive="active-link">Collaborateurs</a></li>
   </ul>
 </div>
 
@@ -25,13 +25,13 @@
       <img src="assets/images/logos/staffme-logo.png" alt="Logo" class="logo">
     </div>
     <ul class="nav-list">
-      <li><a href="/dashboard">Tableau de bord</a></li>
-      <li><a href="/projects">Projets</a></li>
-      <li><a href="/teams">Équipes</a></li>
-      <li><a href="/collaborators">Collaborateurs</a></li>
+      <li><a routerLink="/dashboard" routerLinkActive="active-link">Tableau de bord</a></li>
+      <li><a routerLink="/projects" routerLinkActive="active-link">Projets</a></li>
+      <li><a routerLink="/teams" routerLinkActive="active-link">Équipes</a></li>
+      <li><a routerLink="/collaborators" routerLinkActive="active-link">Collaborateurs</a></li>
       
     </ul>
-    <li class="item-logout"><a href="/logout">Déconnexion</a></li>
+    <li class="item-logout"><a routerLink="/logout">Déconnexion</a></li>
   </div>
   <div class="sidenav-content">
     <!-- Contenu de la sidenav -->
