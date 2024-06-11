@@ -1,0 +1,17 @@
+// Séparation Menu et Contenu des pages (Desktop et Mobile)
+@media screen and (min-width: 960px) {
+  .container {
+    display: flex;
+    height: 100%;
+  }
+  
+  .content {
+    flex: 1;
+  }
+}
+
+@media screen and (max-width: 959px) {
+  .content.with-nav{
+    margin-top: 70px;
+  }
+}
