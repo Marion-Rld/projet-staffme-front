@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { TopBarComponent } from '../app/components/nav/top-bar/top-bar.component';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +29,7 @@ import { CommonModule } from '@angular/common';
     HttpClientModule,
     RouterModule,
     CommonModule,
+    TopBarComponent,
   ],
 })
 export class AppComponent {

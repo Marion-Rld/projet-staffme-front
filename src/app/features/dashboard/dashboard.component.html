@@ -1,1 +1,60 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+    <div class="dashboard-row">
+      <mat-card class="dashboard-card full-width no-padding">
+        <mat-card-title>
+          Projets en cours
+          <div class="full-width-hr">
+            <hr>
+          </div>
+        </mat-card-title>
+        <mat-card-content class="no-padding">
+          <table mat-table [dataSource]="projects" class="mat-elevation-z8 full-width-table">
+            <ng-container matColumnDef="empty">
+              <td mat-cell *matCellDef="let element"> </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="name">
+              <td mat-cell *matCellDef="let project"> {{project.name}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="dates">
+              <td mat-cell *matCellDef="let project"> {{project.startDate}} - {{project.endDate}} </td>
+            </ng-container>
+  
+            <ng-container matColumnDef="teams">
+              <td mat-cell *matCellDef="let project"> {{project.teams.join(', ')}} </td>
+            </ng-container>
+  
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="dashboard-row">
+      <mat-card class="dashboard-card one-third-width">
+        <mat-card-title>
+          Equipes
+          <div class="full-width-hr">
+            <hr>
+          </div>
+        </mat-card-title>
+        <mat-card-content>
+          <ul class="team-list">
+            <li *ngFor="let team of teams">{{ team }}</li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="dashboard-card two-thirds-width">
+        <mat-card-title>
+          Statistiques
+          <div class="full-width-hr">
+            <hr>
+          </div>
+        </mat-card-title>
+        <mat-card-content>
+
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  
