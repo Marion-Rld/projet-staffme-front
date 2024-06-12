@@ -2,16 +2,14 @@ import { Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { FormGroup,
-  FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ApiService } from '../../services/api.service';
-
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatInputModule, MatButtonModule,CommonModule, ReactiveFormsModule, HttpClientModule],
+  imports: [MatInputModule, MatButtonModule, CommonModule, ReactiveFormsModule, HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -30,7 +28,8 @@ export class LoginComponent {
       this.apiService.login(this.loginForm.value).subscribe({
         next: (response) => {
           console.log('User logged in successfully', response);
-          // Redirect to home page
+          this.apiService.setToken(response.token);
+          window.location.href = '/';
         },
         error: (error) => {
           console.error('Failed to log in user', error);

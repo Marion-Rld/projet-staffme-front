@@ -21,8 +21,30 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/auth-api/reset-password`, { token, password });
   }
 
+  register(userData: any): Observable<any> {
+    const { confirmPassword, ...userPayload } = userData;
+    console.log(userPayload);
+    console.log(this.apiUrl);
+    return this.http.post(`${this.apiUrl}/auth-api/signup`, userPayload);
+}
+
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth-api/login`, credentials);
+  }
+
+  // Utilitaire pour stocker le token dans le local storage
+  setToken(token: string): void {
+    localStorage.setItem('jwtToken', token);
+  }
+
+  // Utilitaire pour récupérer le token
+  getToken(): string | null {
+    return localStorage.getItem('jwtToken');
+  }
+
+  // Utilitaire pour supprimer le token
+  removeToken(): void {
+    localStorage.removeItem('jwtToken');
   }
 
   // USERS

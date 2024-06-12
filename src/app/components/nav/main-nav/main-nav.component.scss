@@ -36,6 +36,10 @@ $nav-background-color: #264653;
 }
 
 // Styles pour la sidebar et la navbar
+li a{
+  cursor: pointer;
+}
+
 .sidenav-container {
   display: flex;
   height: 100%;

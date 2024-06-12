@@ -1,3 +1,7 @@
+.content.without-nav app-top-bar{
+  display: none;
+}
+
 // Séparation Menu et Contenu des pages (Desktop et Mobile)
 @media screen and (min-width: 960px) {
   .container {

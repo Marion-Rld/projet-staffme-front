@@ -16,7 +16,7 @@ import { ApiService } from '../../services/api.service';
   standalone: true,
   imports: [MatInputModule, MatButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
   registerForm = new FormGroup({
@@ -44,7 +44,7 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid && this.passwordsMatch()) {
-      this.apiService.addUser(this.registerForm.value).subscribe({
+      this.apiService.register(this.registerForm.value).subscribe({
         next: (response) => {
           console.log('User added successfully', response);
         },
