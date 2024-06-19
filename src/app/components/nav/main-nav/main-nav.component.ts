@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { ApiService } from '../../../services/api.service';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-main-nav',
@@ -11,7 +11,7 @@ import { ApiService } from '../../../services/api.service';
   styleUrls: ['./main-nav.component.scss']
 })
 export class MainNavComponent {
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   hideNav = false;
   showMobileMenu = false;
@@ -21,7 +21,7 @@ export class MainNavComponent {
   }
 
   logout() {
-    this.apiService.removeToken();
+    this.authService.removeToken();
     this.router.navigate(['/login']);
   }
 }

@@ -3,7 +3,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -17,7 +17,7 @@ export class ForgotPasswordComponent {
     email: new FormControl('', [Validators.required, Validators.email])
   });
 
-  constructor(private apiService: ApiService) {
+  constructor(private authService: AuthService) {
     console.log('ForgotPasswordComponent constructor');
   }
 
@@ -25,7 +25,7 @@ export class ForgotPasswordComponent {
     if (this.forgotPasswordForm.valid) {
       const email: string = this.forgotPasswordForm.get('email')!.value!;
       
-      this.apiService.forgotPassword(email).subscribe({
+      this.authService.forgotPassword(email).subscribe({
         next: (response) => {
           console.log('Password reset email sent successfully', response);
         },

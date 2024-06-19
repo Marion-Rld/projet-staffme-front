@@ -9,7 +9,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -38,13 +38,13 @@ export class RegisterComponent {
     confirmPassword: new FormControl('', [Validators.required]),
   });
 
-  constructor(private apiService: ApiService) {
+  constructor(private authService: AuthService) {
     console.log('RegisterComponent constructor');
   }
 
   onSubmit() {
     if (this.registerForm.valid && this.passwordsMatch()) {
-      this.apiService.register(this.registerForm.value).subscribe({
+      this.authService.register(this.registerForm.value).subscribe({
         next: (response) => {
           console.log('User added successfully', response);
         },

@@ -6,10 +6,12 @@ import { environment } from '../../environments/environment';
 @Injectable({
   providedIn: 'root',
 })
-
-export class ApiService {
-  private apiUrl = environment.apiUrl;
+export class SkillService {
+  private apiUrl = `${environment.apiUrl}/skills-api`;
 
   constructor(private http: HttpClient) {}
 
+  getSkills(): Observable<any> {
+    return this.http.get(`${this.apiUrl}`);
+  }
 }

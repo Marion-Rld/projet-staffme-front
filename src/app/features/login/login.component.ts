@@ -4,7 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -19,16 +19,16 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required])
   });
 
-  constructor(private apiService: ApiService) {
+  constructor(private authService: AuthService) {
     console.log('LoginComponent constructor');
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
-      this.apiService.login(this.loginForm.value).subscribe({
+      this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
           console.log('User logged in successfully', response);
-          this.apiService.setToken(response.token);
+          this.authService.setToken(response.token);
           window.location.href = '/';
         },
         error: (error) => {
