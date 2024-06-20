@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -38,5 +38,14 @@ export class AuthService {
 
   removeToken(): void {
     localStorage.removeItem('jwtToken');
+  }
+
+  validateToken(): Observable<any> {
+    const token = this.getToken();
+    if (token) {
+      const headers = new HttpHeaders().set('x-auth-token', token);
+      return this.http.get(`${this.apiUrl}/validate-token`, { headers });
+    }
+    return new Observable((observer) => observer.error('No token found'));
   }
 }
