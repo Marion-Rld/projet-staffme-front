@@ -4,6 +4,7 @@ import { PaginatedSortableTableComponent } from '../../components/shared/paginat
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SearchInputComponent } from '../../components/shared/search-input/search-input.component';
+import { AddButtonComponent } from '../../components/shared/add-button/add-button.component';
 
 @Component({
   selector: 'app-projects',
@@ -13,6 +14,7 @@ import { SearchInputComponent } from '../../components/shared/search-input/searc
     MatFormFieldModule,
     MatInputModule,
     SearchInputComponent,
+    AddButtonComponent,
   ],
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],

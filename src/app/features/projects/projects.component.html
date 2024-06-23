@@ -1,5 +1,10 @@
 <div class="container">
-  <app-search-input (searchTermChange)="applyFilter($event)"></app-search-input>
+  <div class="top-bar">
+    <app-search-input
+      (searchTermChange)="applyFilter($event)"
+    ></app-search-input>
+    <app-add-button [buttonText]="'AJOUTER UN PROJET'"></app-add-button>
+  </div>
   <app-paginated-sortable-table
     [displayedColumns]="displayedColumns"
     [dataSource]="dataSource"
