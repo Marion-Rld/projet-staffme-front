@@ -1,4 +1,9 @@
-<button mat-raised-button color="primary" class="add-button">
+<button
+  mat-raised-button
+  color="primary"
+  class="add-button"
+  (click)="onClick()"
+>
   <mat-icon>add_box</mat-icon>
   <span class="button-text">{{ buttonText }}</span>
 </button>

@@ -7,6 +7,8 @@ import { SearchInputComponent } from '../../components/shared/search-input/searc
 import { AddButtonComponent } from '../../components/shared/add-button/add-button.component';
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateProjectComponent } from '../../components/projects/create-project/create-project.component';
 
 @Component({
   selector: 'app-projects',
@@ -17,6 +19,7 @@ import { Project } from '../../models/project.model';
     MatInputModule,
     SearchInputComponent,
     AddButtonComponent,
+    CreateProjectComponent,
   ],
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
@@ -44,7 +47,10 @@ export class ProjectsComponent implements OnInit {
 
   dataSource = new MatTableDataSource<Project>([]);
 
-  constructor(private projectService: ProjectService) {}
+  constructor(
+    private projectService: ProjectService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.projectService.getProjects().subscribe((projects) => {
@@ -59,5 +65,20 @@ export class ProjectsComponent implements OnInit {
 
   getDisplayedColumn(column: string): string {
     return this.translatedColumns[column] || column;
+  }
+
+  openCreateProjectDialog(): void {
+    const dialogRef = this.dialog.open(CreateProjectComponent, {
+      width: '800px',
+      panelClass: 'custom-modal',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Project created:', result);
+        // Ajouter le nouveau projet à la table, par exemple :
+        // this.dataSource.data = [...this.dataSource.data, result];
+      }
+    });
   }
 }
