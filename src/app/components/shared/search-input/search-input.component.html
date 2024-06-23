@@ -1,0 +1,10 @@
+<div class="searchInputContainer">
+  <input
+    matInput
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchTermChange()"
+    class="searchInput"
+    placeholder="Rechercher un projet..."
+  />
+  <mat-icon class="searchIcon">search</mat-icon>
+</div>

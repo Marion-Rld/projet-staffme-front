@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaginatedSortableTableComponent } from '../../components/shared/paginated-sortable-table/paginated-sortable-table.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { SearchInputComponent } from '../../components/shared/search-input/search-input.component';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [PaginatedSortableTableComponent],
+  imports: [
+    PaginatedSortableTableComponent,
+    MatFormFieldModule,
+    MatInputModule,
+    SearchInputComponent,
+  ],
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss'],
 })
@@ -21,6 +29,10 @@ export class ProjectsComponent implements OnInit {
   dataSource = new MatTableDataSource(PROJECTS_DATA);
 
   ngOnInit(): void {}
+
+  applyFilter(filterValue: string): void {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }
 
 const PROJECTS_DATA = [
