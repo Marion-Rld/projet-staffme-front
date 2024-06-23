@@ -1,3 +1,5 @@
+import { Team } from './team.model';
+
 export interface Project {
   _id: string;
   name: string;
@@ -6,5 +8,5 @@ export interface Project {
   startDate: Date;
   endDate: Date;
   budget: number;
-  teams: string[];
+  teams: Team[];
 }

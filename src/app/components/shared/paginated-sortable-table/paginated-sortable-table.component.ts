@@ -9,6 +9,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
+import { Team } from './../../../models/team.model';
 
 @Component({
   selector: 'app-paginated-sortable-table',
@@ -38,5 +39,9 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
 
   getColumnLabel(column: string): string {
     return this.columnLabels[column] || column;
+  }
+
+  getTeamNames(teams: Team[]): string {
+    return teams.map(team => team.name).join(', ');
   }
 }

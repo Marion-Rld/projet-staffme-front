@@ -29,6 +29,7 @@ export class ProjectsComponent implements OnInit {
     'endDate',
     'status',
     'budget',
+    'teams',
   ];
 
   translatedColumns: { [key: string]: string } = {
@@ -38,6 +39,7 @@ export class ProjectsComponent implements OnInit {
     endDate: 'Date de fin',
     status: 'Statut',
     budget: 'Budget',
+    teams: 'Équipes',
   };
 
   dataSource = new MatTableDataSource<Project>([]);
