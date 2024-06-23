@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
   @Input() displayedColumns: string[] = [];
   @Input() dataSource = new MatTableDataSource<any>();
+  @Input() columnLabels: { [key: string]: string } = {};
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -33,5 +34,9 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
 
   isDateColumn(column: string): boolean {
     return column.includes('Date');
+  }
+
+  getColumnLabel(column: string): string {
+    return this.columnLabels[column] || column;
   }
 }
