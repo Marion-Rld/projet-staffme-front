@@ -4,6 +4,7 @@ import { RegisterComponent } from './features/register/register.component';
 import { ForgotPasswordComponent } from './features/forgot-password/forgot-password.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { AuthGuard } from '../../src/app/guard/auth.guard';
+import { AdminGuard } from '../../src/app/guard/admin.guard';
 /*import { ProjectsComponent } from './features/projects/projects.component';
 import { TeamsComponent } from './features/teams/teams.component';
 import { CollaboratorsComponent } from './features/collaborators/collaborators.component';

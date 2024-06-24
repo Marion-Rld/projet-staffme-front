@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -38,7 +39,7 @@ export class RegisterComponent {
     confirmPassword: new FormControl('', [Validators.required]),
   });
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
     console.log('RegisterComponent constructor');
   }
 
@@ -47,6 +48,7 @@ export class RegisterComponent {
       this.authService.register(this.registerForm.value).subscribe({
         next: (response) => {
           console.log('User added successfully', response);
+          this.router.navigate(['/login']);
         },
         error: (error) => {
           console.error('Failed to add user', error);
