@@ -50,8 +50,8 @@
         <mat-form-field appearance="fill" class="full-width">
           <mat-label>Associer à une équipe (optionnel)</mat-label>
           <mat-select formControlName="teams" multiple>
-            <mat-option *ngFor="let team of teams" [value]="team">{{
-              team
+            <mat-option *ngFor="let team of teams" [value]="team._id">{{
+              team.name
             }}</mat-option>
           </mat-select>
         </mat-form-field>

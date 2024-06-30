@@ -19,6 +19,9 @@ import {
   MatNativeDateModule,
   NativeDateAdapter,
 } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
+import { TeamService } from '../../../services/team.service';
+import { Team } from '../../../models/team.model';
 
 export const MY_FORMATS = {
   parse: {
@@ -36,6 +39,7 @@ export const MY_FORMATS = {
   selector: 'app-create-project',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -62,9 +66,18 @@ export class CreateProjectComponent {
     teams: new FormControl([]),
   });
 
-  teams = ['Equipe 1', 'Equipe 2', 'Equipe 3', 'Equipe 4', 'Equipe 5'];
+  teams: Team[] = [];
 
-  constructor(public dialogRef: MatDialogRef<CreateProjectComponent>) {}
+  constructor(
+    private teamService: TeamService,
+    public dialogRef: MatDialogRef<CreateProjectComponent>
+  ) {}
+
+  ngOnInit(): void {
+    this.teamService.getTeams().subscribe((teams) => {
+      this.teams = teams;
+    });
+  }
 
   onSubmit(): void {
     if (this.projectForm.valid) {
