@@ -48,6 +48,14 @@
 
       <div class="right-column">
         <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Budget</mat-label>
+          <input matInput formControlName="budget" type="number" />
+          <mat-error *ngIf="projectForm.get('budget')?.hasError('pattern')">
+            Le budget doit être un nombre.
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
           <mat-label>Associer à une équipe (optionnel)</mat-label>
           <mat-select formControlName="teams" multiple>
             <mat-option *ngFor="let team of teams" [value]="team._id">{{

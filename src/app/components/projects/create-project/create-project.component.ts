@@ -63,6 +63,7 @@ export class CreateProjectComponent {
     startDate: new FormControl('', Validators.required),
     endDate: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
+    budget: new FormControl('', [Validators.pattern('^[0-9]*$')]),
     teams: new FormControl([]),
   });
 
