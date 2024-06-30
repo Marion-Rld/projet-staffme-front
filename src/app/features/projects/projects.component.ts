@@ -53,7 +53,7 @@ export class ProjectsComponent implements OnInit {
   constructor(
     private teamService: TeamService,
     private projectService: ProjectService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
   ) {}
 
   ngOnInit(): void {

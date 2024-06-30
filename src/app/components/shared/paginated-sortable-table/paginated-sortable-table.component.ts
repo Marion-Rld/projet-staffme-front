@@ -10,6 +10,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { Team } from './../../../models/team.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paginated-sortable-table',
@@ -25,6 +26,10 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(
+    private router: Router
+  ) {}
 
   ngOnInit() {}
 
@@ -43,5 +48,9 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
 
   getTeamNames(teams: Team[]): string {
     return teams.map(team => team.name).join(', ');
+  }
+
+  navigateToProject(projectId: string): void {
+    this.router.navigate(['/project', projectId]);
   }
 }
