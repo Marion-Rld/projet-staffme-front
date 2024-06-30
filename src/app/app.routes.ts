@@ -4,6 +4,8 @@ import { RegisterComponent } from './features/register/register.component';
 import { ForgotPasswordComponent } from './features/forgot-password/forgot-password.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { AuthGuard } from '../../src/app/guard/auth.guard';
+import { AdminGuard } from '../../src/app/guard/admin.guard';
+import { SuperAdminGuard } from './guard/superadmin.guard';
 import { ProjectsComponent } from './features/projects/projects.component';
 /*
 import { TeamsComponent } from './features/teams/teams.component';
@@ -14,7 +16,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: '', component: DashboardComponent, canActivate: [SuperAdminGuard] },
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
   /*
     { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },

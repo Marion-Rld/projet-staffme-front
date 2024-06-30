@@ -80,4 +80,55 @@ export class AuthService {
   login(credentials: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth-api/login`, credentials);
   }
+
+  isAdmin(): Observable<boolean> {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = this.getToken();
+      if (!token) {
+        return of(false); // Pas de token, rediriger vers login
+      }
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.get<any>(`${this.apiUrl}/auth-api/is-admin`, { headers }).pipe(
+        map(response => {
+          if (response && response.isAdmin) {
+            return true; // L'utilisateur est un admin
+          } else {
+            return false; // L'utilisateur n'est pas un admin
+          }
+        }),
+        catchError(error => {
+          console.error('Admin validation error:', error);
+          return of(false); // Rediriger vers la page de login en cas d'erreur
+        })
+      );
+    } else {
+      return of(false);
+    }
+  }
+
+  isSuperAdmin(): Observable<boolean> {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = this.getToken();
+      if (!token) {
+        return of(false); // Pas de token, rediriger vers login
+      }
+      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+      return this.http.get<any>(`${this.apiUrl}/auth-api/is-superadmin`, { headers }).pipe(
+        map(response => {
+          if (response && response.isSuperAdmin) {
+            return true; // L'utilisateur est un superadmin
+          } else {
+            return false; // L'utilisateur n'est pas un superadmin
+          }
+        }),
+        catchError(error => {
+          console.error('SuperAdmin validation error:', error);
+          return of(false); // Rediriger vers la page de login en cas d'erreur
+        })
+      );
+    } else {
+      return of(false);
+    }
+  }
 }
+
