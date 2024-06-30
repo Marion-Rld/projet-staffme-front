@@ -22,6 +22,8 @@ import {
 import { CommonModule } from '@angular/common';
 import { TeamService } from '../../../services/team.service';
 import { Team } from '../../../models/team.model';
+import { ProjectService } from '../../../services/project.service';
+import { Project } from '../../../models/project.model';
 
 export const MY_FORMATS = {
   parse: {
@@ -63,13 +65,17 @@ export class CreateProjectComponent {
     startDate: new FormControl('', Validators.required),
     endDate: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    budget: new FormControl('', [Validators.pattern('^[0-9]*$')]),
+    budget: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[0-9]*$'),
+    ]),
     teams: new FormControl([]),
   });
 
   teams: Team[] = [];
 
   constructor(
+    private projectService: ProjectService,
     private teamService: TeamService,
     public dialogRef: MatDialogRef<CreateProjectComponent>
   ) {}
@@ -82,8 +88,22 @@ export class CreateProjectComponent {
 
   onSubmit(): void {
     if (this.projectForm.valid) {
-      console.log(this.projectForm.value);
-      this.dialogRef.close(this.projectForm.value);
+      const formValue = this.projectForm.value;
+
+      const newProject: Project = {
+        name: formValue.name!,
+        startDate: new Date(formValue.startDate!), 
+        endDate: new Date(formValue.endDate!),
+        description: formValue.description!,
+        budget: Number(formValue.budget!), 
+        teams: formValue.teams!,
+        status: 'Planned', 
+      };
+
+      console.log(newProject);
+      this.projectService.createProject(newProject).subscribe((response) => {
+        this.dialogRef.close(response);
+      });
     }
   }
 

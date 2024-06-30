@@ -8,11 +8,15 @@ import { Project } from '../models/project.model';
   providedIn: 'root',
 })
 export class ProjectService {
-  private apiUrl = `${environment.apiUrl}/projects-api/projects`;
+  private apiUrl = `${environment.apiUrl}/projects-api`;
 
   constructor(private http: HttpClient) {}
 
   getProjects(): Observable<Project[]> {
-    return this.http.get<Project[]>(this.apiUrl);
+    return this.http.get<Project[]>(`${this.apiUrl}/projects`);
+  }
+
+  createProject(project: Project): Observable<Project[]> {
+    return this.http.post<Project[]>(`${this.apiUrl}/project`, project);
   }
 }

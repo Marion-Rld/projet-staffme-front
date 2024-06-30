@@ -9,6 +9,8 @@ import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateProjectComponent } from '../../components/projects/create-project/create-project.component';
+import { Team } from '../../models/team.model';
+import { TeamService } from '../../services/team.service';
 
 @Component({
   selector: 'app-projects',
@@ -46,16 +48,28 @@ export class ProjectsComponent implements OnInit {
   };
 
   dataSource = new MatTableDataSource<Project>([]);
+  teams: Team[] = [];
 
   constructor(
+    private teamService: TeamService,
     private projectService: ProjectService,
     public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
+    this.loadProjects();
+    this.loadTeams();
+  }
+
+  loadProjects(): void {
     this.projectService.getProjects().subscribe((projects) => {
-      console;
       this.dataSource.data = projects;
+    });
+  }
+
+  loadTeams(): void {
+    this.teamService.getTeams().subscribe((teams) => {
+      this.teams = teams;
     });
   }
 
@@ -67,6 +81,15 @@ export class ProjectsComponent implements OnInit {
     return this.translatedColumns[column] || column;
   }
 
+  addProjectToTable(project: Project): void {
+    const updatedTeams = (project.teams as string[]).map((teamId: string) => {
+      const team = this.teams.find((team) => team._id === teamId);
+      return team ? team : ({ _id: teamId, name: 'Unknown' } as Team);
+    });
+    project.teams = updatedTeams as Team[];
+    this.dataSource.data = [...this.dataSource.data, project];
+  }
+
   openCreateProjectDialog(): void {
     const dialogRef = this.dialog.open(CreateProjectComponent, {
       width: '800px',
@@ -76,8 +99,7 @@ export class ProjectsComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('Project created:', result);
-        // Ajouter le nouveau projet à la table, par exemple :
-        // this.dataSource.data = [...this.dataSource.data, result];
+        this.addProjectToTable(result);
       }
     });
   }
