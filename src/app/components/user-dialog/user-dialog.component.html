@@ -1,0 +1,89 @@
+<!-- src/app/user-dialog/user-dialog.component.html -->
+<h1 mat-dialog-title *ngIf="!data.isDelete">{{ data.isEdit ? 'Modifier Utilisateur' : 'Créer Utilisateur' }}</h1>
+<h1 mat-dialog-title *ngIf="data.isDelete">Supprimer Utilisateur</h1>
+<div mat-dialog-content *ngIf="!data.isDelete">
+  <form [formGroup]="userForm" class="form-grid">
+    <mat-grid-list cols="2" rowHeight="fit" gutterSize="20px">
+      
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Prénom</mat-label>
+          <input matInput formControlName="firstName">
+        </mat-form-field>
+      </mat-grid-tile>
+      
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Nom</mat-label>
+          <input matInput formControlName="lastName">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Numéro de téléphone</mat-label>
+          <input matInput formControlName="phoneNumber">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Mot de passe</mat-label>
+          <input matInput formControlName="password" type="password">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Rôle</mat-label>
+          <mat-select formControlName="role">
+            <mat-option value="user">Utilisateur</mat-option>
+            <mat-option value="admin">Administrateur</mat-option>
+            <mat-option value="superadmin">Super Administrateur</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Profession</mat-label>
+          <input matInput formControlName="job">
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile>
+        <mat-form-field appearance="fill">
+          <mat-label>Sexe</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="male">Homme</mat-option>
+            <mat-option value="female">Femme</mat-option>
+            <mat-option value="other">Autre</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </mat-grid-tile>
+
+      <mat-grid-tile colspan="2">
+        <mat-form-field appearance="fill">
+          <mat-label>Adresse postale</mat-label>
+          <input matInput formControlName="postalAddress">
+        </mat-form-field>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </form>
+</div>
+<div mat-dialog-content *ngIf="data.isDelete">
+  Voulez-vous vraiment supprimer cet utilisateur ?
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-button *ngIf="!data.isDelete" (click)="onSave()">{{ data.isEdit ? 'Sauvegarder' : 'Créer' }}</button>
+  <button mat-button *ngIf="data.isDelete" (click)="onDelete()">Supprimer</button>
+</div>

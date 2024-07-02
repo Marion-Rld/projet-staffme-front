@@ -25,6 +25,8 @@ export class TopBarComponent {
         this.title = 'Équipes';
       } else if (event.url === '/collaborators') {
         this.title = 'collaborateurs';
+      } else if (event.url === '/user-list') {
+        this.title = 'Liste des utilisateurs';
       }
     });
   }

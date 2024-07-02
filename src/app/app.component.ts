@@ -8,6 +8,9 @@ import {
 import { MainNavComponent } from './components/nav/main-nav/main-nav.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { filter } from 'rxjs/operators';
@@ -30,6 +33,9 @@ import { TopBarComponent } from '../app/components/nav/top-bar/top-bar.component
     RouterModule,
     CommonModule,
     TopBarComponent,
+    MatIconModule,
+    MatTableModule,
+    MatDialogModule,
   ],
 })
 export class AppComponent {

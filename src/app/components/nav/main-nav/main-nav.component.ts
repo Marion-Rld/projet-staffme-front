@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-main-nav',
@@ -10,17 +11,23 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './main-nav.component.html',
   styleUrls: ['./main-nav.component.scss']
 })
-export class MainNavComponent {
-  constructor(private authService: AuthService, private router: Router) {}
+export class MainNavComponent implements OnInit {
 
+  isAdmin!: Observable<boolean>;
   hideNav = false;
   showMobileMenu = false;
 
-  toggleNav() {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.isAdmin = this.authService.isAdmin();
+  }
+
+  toggleNav(): void {
     this.showMobileMenu = !this.showMobileMenu;
   }
 
-  logout() {
+  logout(): void {
     this.authService.removeToken();
     this.router.navigate(['/login']);
   }

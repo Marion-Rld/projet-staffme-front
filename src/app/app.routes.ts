@@ -3,6 +3,7 @@ import { LoginComponent } from './features/login/login.component';
 import { RegisterComponent } from './features/register/register.component';
 import { ForgotPasswordComponent } from './features/forgot-password/forgot-password.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { UserListComponent } from './features/user-list/user-list.component';
 import { AuthGuard } from '../../src/app/guard/auth.guard';
 import { AdminGuard } from '../../src/app/guard/admin.guard';
 import { SuperAdminGuard } from './guard/superadmin.guard';
@@ -14,14 +15,15 @@ import { CollaboratorsComponent } from './features/collaborators/collaborators.c
 import { LogoutComponent } from './features/logout/logout.component';*/
 
 export const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: '', component: DashboardComponent, canActivate: [SuperAdminGuard] },
-  { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
-  {path: 'project/:id', component: ProjectDetailComponent, canActivate: [AuthGuard]}
-  /*
-    { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
-    { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },
-    { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] }*/
+    { path: 'login', component: LoginComponent },
+    { path: 'register', component: RegisterComponent },
+    { path: 'forgot-password', component: ForgotPasswordComponent },
+    { path: '', component: DashboardComponent, canActivate: [SuperAdminGuard] },
+    { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+    { path: 'project/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
+    { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
+    /*
+      { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
+      { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },
+      { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] }*/
 ];

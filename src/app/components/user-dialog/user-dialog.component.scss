@@ -1,0 +1,35 @@
+:host {
+  display: block;
+  padding: 20px;
+}
+
+.form-grid {
+  width: 100%;
+}
+
+.cdk-global-overlay-wrapper .cdk-overlay-pane[style] {
+  width : 100%!important;
+}
+
+mat-grid-list{
+  width: 100%;
+  min-height: 70vh;
+}
+
+mat-grid-tile {
+  padding: 10px;
+}
+
+mat-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+
+button[mat-button] {
+  margin-left: 10px;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
