@@ -7,22 +7,26 @@
   width: 100%;
 }
 
-.cdk-global-overlay-wrapper .cdk-overlay-pane[style] {
-  width : 100%!important;
+.cdk-global-overlay-wrapper .cdk-overlay-pane {
+  width: 100% !important;
 }
 
-mat-grid-list{
+mat-grid-list {
   width: 100%;
   min-height: 70vh;
 }
 
 mat-grid-tile {
+  padding: 5px;
+}
+
+mat-form-field {
   padding: 10px;
 }
 
 mat-dialog-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   padding-top: 20px;
 }
 
@@ -31,5 +35,6 @@ button[mat-button] {
 }
 
 h1 {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+  font-size: 28px;
 }

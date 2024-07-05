@@ -18,7 +18,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
     { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: '', component: DashboardComponent, canActivate: [SuperAdminGuard] },
+    { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
     { path: 'project/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
     { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },

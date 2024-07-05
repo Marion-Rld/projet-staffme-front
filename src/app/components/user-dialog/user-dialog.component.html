@@ -1,89 +1,85 @@
-<!-- src/app/user-dialog/user-dialog.component.html -->
-<h1 mat-dialog-title *ngIf="!data.isDelete">{{ data.isEdit ? 'Modifier Utilisateur' : 'Créer Utilisateur' }}</h1>
-<h1 mat-dialog-title *ngIf="data.isDelete">Supprimer Utilisateur</h1>
-<div mat-dialog-content *ngIf="!data.isDelete">
-  <form [formGroup]="userForm" class="form-grid">
-    <mat-grid-list cols="2" rowHeight="fit" gutterSize="20px">
-      
-      <mat-grid-tile>
-        <mat-form-field appearance="fill">
-          <mat-label>Prénom</mat-label>
-          <input matInput formControlName="firstName">
-        </mat-form-field>
-      </mat-grid-tile>
-      
-      <mat-grid-tile>
-        <mat-form-field appearance="fill">
-          <mat-label>Nom</mat-label>
-          <input matInput formControlName="lastName">
-        </mat-form-field>
-      </mat-grid-tile>
+<h1 mat-dialog-title>{{ data.user ? 'Modifier Utilisateur' : 'Créer Utilisateur' }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="userForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Nom</mat-label>
+      <input matInput formControlName="lastName" />
+      <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">
+        Le nom est obligatoire.
+      </mat-error>
+      <mat-error *ngIf="userForm.get('lastName')?.hasError('minlength')">
+        Le nom doit contenir au moins 2 caractères.
+      </mat-error>
+    </mat-form-field>
 
-      <mat-grid-tile>
-        <mat-form-field appearance="fill">
-          <mat-label>Email</mat-label>
-          <input matInput formControlName="email">
-        </mat-form-field>
-      </mat-grid-tile>
+    <mat-form-field appearance="fill">
+      <mat-label>Prénom</mat-label>
+      <input matInput formControlName="firstName" />
+      <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">
+        Le prénom est obligatoire.
+      </mat-error>
+      <mat-error *ngIf="userForm.get('firstName')?.hasError('minlength')">
+        Le prénom doit contenir au moins 2 caractères.
+      </mat-error>
+    </mat-form-field>
 
-      <mat-grid-tile>
-        <mat-form-field appearance="fill">
-          <mat-label>Numéro de téléphone</mat-label>
-          <input matInput formControlName="phoneNumber">
-        </mat-form-field>
-      </mat-grid-tile>
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="userForm.get('email')?.hasError('required')">
+        L'email est obligatoire.
+      </mat-error>
+      <mat-error *ngIf="userForm.get('email')?.hasError('email')">
+        L'email n'est pas valide.
+      </mat-error>
+    </mat-form-field>
 
-      <mat-grid-tile>
-        <mat-form-field appearance="fill">
-          <mat-label>Mot de passe</mat-label>
-          <input matInput formControlName="password" type="password">
-        </mat-form-field>
-      </mat-grid-tile>
+    <mat-form-field appearance="fill">
+      <mat-label>Mot de passe</mat-label>
+      <input matInput type="password" formControlName="password" />
+      <mat-error *ngIf="userForm.get('password')?.hasError('required')">
+        Le mot de passe est obligatoire.
+      </mat-error>
+    </mat-form-field>
 
-      <mat-grid-tile>
-        <mat-form-field appearance="fill">
-          <mat-label>Rôle</mat-label>
-          <mat-select formControlName="role">
-            <mat-option value="user">Utilisateur</mat-option>
-            <mat-option value="admin">Administrateur</mat-option>
-            <mat-option value="superadmin">Super Administrateur</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-grid-tile>
+    <mat-form-field appearance="fill">
+      <mat-label>Téléphone</mat-label>
+      <input matInput formControlName="phoneNumber" />
+    </mat-form-field>
 
-      <mat-grid-tile>
-        <mat-form-field appearance="fill">
-          <mat-label>Profession</mat-label>
-          <input matInput formControlName="job">
-        </mat-form-field>
-      </mat-grid-tile>
+    <mat-form-field appearance="fill">
+      <mat-label>Poste</mat-label>
+      <input matInput formControlName="job" />
+    </mat-form-field>
 
-      <mat-grid-tile>
-        <mat-form-field appearance="fill">
-          <mat-label>Sexe</mat-label>
-          <mat-select formControlName="gender">
-            <mat-option value="male">Homme</mat-option>
-            <mat-option value="female">Femme</mat-option>
-            <mat-option value="other">Autre</mat-option>
-          </mat-select>
-        </mat-form-field>
-      </mat-grid-tile>
+    <mat-form-field appearance="fill">
+      <mat-label>Adresse</mat-label>
+      <input matInput formControlName="postalAddress" />
+    </mat-form-field>
 
-      <mat-grid-tile colspan="2">
-        <mat-form-field appearance="fill">
-          <mat-label>Adresse postale</mat-label>
-          <input matInput formControlName="postalAddress">
-        </mat-form-field>
-      </mat-grid-tile>
+    <mat-form-field appearance="fill">
+      <mat-label>Genre</mat-label>
+      <mat-select formControlName="gender">
+        <mat-option value="male">Masculin</mat-option>
+        <mat-option value="female">Féminin</mat-option>
+        <mat-option value="other">Autre</mat-option>
+      </mat-select>
+    </mat-form-field>
 
-    </mat-grid-list>
+    <mat-form-field appearance="fill">
+      <mat-label>Rôle</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="user">Utilisateur</mat-option>
+        <mat-option value="admin">Administrateur</mat-option>
+        <mat-option value="superadmin">Super Administrateur</mat-option>
+      </mat-select>
+      <mat-error *ngIf="userForm.get('role')?.hasError('required')">
+        Le rôle est obligatoire.
+      </mat-error>
+    </mat-form-field>
   </form>
-</div>
-<div mat-dialog-content *ngIf="data.isDelete">
-  Voulez-vous vraiment supprimer cet utilisateur ?
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Annuler</button>
-  <button mat-button *ngIf="!data.isDelete" (click)="onSave()">{{ data.isEdit ? 'Sauvegarder' : 'Créer' }}</button>
-  <button mat-button *ngIf="data.isDelete" (click)="onDelete()">Supprimer</button>
+  <button mat-button (click)="onSave()" [disabled]="!userForm.valid">Enregistrer</button>
 </div>

@@ -16,6 +16,8 @@
     <li><a routerLink="/projects" routerLinkActive="active-link">Projets</a></li>
     <li><a routerLink="/teams" routerLinkActive="active-link">Équipes</a></li>
     <li><a routerLink="/collaborators" routerLinkActive="active-link">Collaborateurs</a></li>
+    <li *ngIf="isSuperAdmin | async"><a routerLink="/user-list" routerLinkActive="active-link">Liste des utilisateurs</a></li>
+    <li class="item-logout"><a (click)="logout()">Déconnexion</a></li>
   </ul>
 </div>
 
@@ -29,9 +31,8 @@
       <li><a routerLink="/projects" routerLinkActive="active-link">Projets</a></li>
       <li><a routerLink="/teams" routerLinkActive="active-link">Équipes</a></li>
       <li><a routerLink="/collaborators" routerLinkActive="active-link">Collaborateurs</a></li>
-      <li *ngIf="isAdmin | async"><a routerLink="/user-list" routerLinkActive="active-link">Liste des utilisateurs</a></li>
-      
+      <li *ngIf="isSuperAdmin | async"><a routerLink="/user-list" routerLinkActive="active-link">Liste des utilisateurs</a></li>
+      <li class="item-logout"><a (click)="logout()">Déconnexion</a></li>
     </ul>
-    <li class="item-logout"><a (click)="logout()">Déconnexion</a></li>
   </div>
 </div>

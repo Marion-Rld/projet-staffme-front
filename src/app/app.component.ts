@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, HostListener, Renderer2 } from '@angular/core';
 import {
   Router,
   RouterModule,
@@ -44,7 +44,11 @@ export class AppComponent {
   showMainNav = true;
   hideNavRoutes = ['/login', '/register', '/forgot-password']; // Routes où le MainNav doit être caché
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private elRef: ElementRef,
+    private renderer: Renderer2
+  ) {}
 
   ngOnInit() {
     this.router.events
@@ -58,5 +62,24 @@ export class AppComponent {
           event.urlAfterRedirects
         );
       });
+  }
+
+  ngAfterViewInit() {
+    this.adjustContentMargin();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.adjustContentMargin();
+  }
+
+  adjustContentMargin() {
+    const sidebar = this.elRef.nativeElement.querySelector('.sidenav');
+    const content = this.elRef.nativeElement.querySelector('.content');
+
+    if (sidebar && content) {
+      const sidebarWidth = sidebar.offsetWidth;
+      this.renderer.setStyle(content, 'marginLeft', `${sidebarWidth}px`);
+    }
   }
 }

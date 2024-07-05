@@ -4,32 +4,33 @@ import {
   ViewChild,
   Input,
   AfterViewInit,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { Team } from './../../../models/team.model';
 import { Router } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-paginated-sortable-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule],
   templateUrl: './paginated-sortable-table.component.html',
-  styleUrl: './paginated-sortable-table.component.scss',
+  styleUrls: ['./paginated-sortable-table.component.scss'],
 })
 export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
   @Input() displayedColumns: string[] = [];
   @Input() dataSource = new MatTableDataSource<any>();
   @Input() columnLabels: { [key: string]: string } = {};
+  @Output() rowAction = new EventEmitter<{ type: string; element: any }>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
@@ -46,11 +47,15 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
     return this.columnLabels[column] || column;
   }
 
-  getTeamNames(teams: Team[]): string {
+  getTeamNames(teams: any[]): string {
     return teams.map(team => team.name).join(', ');
   }
 
-  navigateToProject(projectId: string): void {
-    this.router.navigate(['/project', projectId]);
+  handleEdit(element: any): void {
+    this.rowAction.emit({ type: 'edit', element });
+  }
+
+  handleDelete(element: any): void {
+    this.rowAction.emit({ type: 'delete', element });
   }
 }

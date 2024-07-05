@@ -13,14 +13,14 @@ import { Observable } from 'rxjs';
 })
 export class MainNavComponent implements OnInit {
 
-  isAdmin!: Observable<boolean>;
+  isSuperAdmin!: Observable<boolean>;
   hideNav = false;
   showMobileMenu = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.isAdmin = this.authService.isAdmin();
+    this.isSuperAdmin = this.authService.isSuperAdmin();
   }
 
   toggleNav(): void {

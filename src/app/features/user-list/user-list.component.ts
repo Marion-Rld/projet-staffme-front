@@ -1,76 +1,119 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
 import { UserDialogComponent } from '../../components/user-dialog/user-dialog.component';
+import { PaginatedSortableTableComponent } from '../../components/shared/paginated-sortable-table/paginated-sortable-table.component';
+import { SearchInputComponent } from '../../components/shared/search-input/search-input.component';
+import { AddButtonComponent } from '../../components/shared/add-button/add-button.component';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
-import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-user-list',
   standalone: true,
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss'],
   imports: [
     CommonModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatIconModule,
-    MatTableModule
+    MatFormFieldModule,
+    MatInputModule,
+    PaginatedSortableTableComponent,
+    SearchInputComponent,
+    AddButtonComponent,
+    UserDialogComponent,
   ],
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.scss'],
 })
-export class UserListComponent {
-  users: any[] = [];
-  displayedColumns: string[] = ['firstName', 'lastName', 'email', 'role', 'actions'];
+export class UserListComponent implements OnInit {
+  displayedColumns: string[] = [
+    'lastName',
+    'firstName',
+    'email',
+    'phoneNumber',
+    'job',
+    'gender',
+    'postalAddress',
+    'role',
+    'actions'
+  ];
 
-  constructor(private userService: UserService, private dialog: MatDialog) {
+  translatedColumns: { [key: string]: string } = {
+    lastName: 'Nom',
+    firstName: 'Prénom',
+    email: 'Email',
+    phoneNumber: 'Téléphone',
+    job: 'Poste',
+    gender: 'Genre',
+    postalAddress: 'Adresse',
+    role: 'Rôle',
+    actions: 'Actions'
+  };
+
+  dataSource = new MatTableDataSource<User>([]);
+
+  constructor(
+    private userService: UserService,
+    public dialog: MatDialog,
+  ) {}
+
+  ngOnInit(): void {
     this.loadUsers();
   }
 
   loadUsers(): void {
-    this.userService.getUsers().subscribe(data => {
-      this.users = data;
+    this.userService.getUsers().subscribe((users) => {
+      this.dataSource.data = users;
     });
   }
 
-  openCreateDialog(): void {
+  applyFilter(filterValue: string): void {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openCreateUserDialog(): void {
     const dialogRef = this.dialog.open(UserDialogComponent, {
-      width: '400px',
-      data: { isEdit: false }
+      width: '800px',
+      panelClass: 'custom-modal',
+      data: { user: null }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.loadUsers();
+        console.log('User created:', result);
+        this.loadUsers(); // Refresh the table after adding a user
       }
     });
   }
 
-  openEditDialog(user: any): void {
+  openEditUserDialog(user: User): void {
     const dialogRef = this.dialog.open(UserDialogComponent, {
-      width: '400px',
-      data: { isEdit: true, user }
+      width: '800px',
+      panelClass: 'custom-modal',
+      data: { user }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.loadUsers();
+        console.log('User updated:', result);
+        this.loadUsers(); // Refresh the table after updating a user
       }
     });
   }
 
-  openDeleteDialog(user: any): void {
-    const dialogRef = this.dialog.open(UserDialogComponent, {
-      width: '400px',
-      data: { isDelete: true, user }
+  deleteUser(userId: string): void {
+    this.userService.deleteUser(userId).subscribe(() => {
+      console.log('User deleted');
+      this.loadUsers(); // Refresh the table after deleting a user
     });
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.loadUsers();
-      }
-    });
+  handleRowAction(action: { type: string; element: User }): void {
+    if (action.type === 'edit') {
+      this.openEditUserDialog(action.element);
+    } else if (action.type === 'delete') {
+      this.deleteUser(action.element._id);
+    }
   }
 }
