@@ -20,7 +20,7 @@ export const routes: Routes = [
     { path: 'forgot-password', component: ForgotPasswordComponent },
     { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
     { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
-    { path: 'project/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
+    { path: 'projects/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
     { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
     /*
       { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },

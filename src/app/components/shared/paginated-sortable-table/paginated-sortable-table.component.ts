@@ -13,11 +13,18 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
+import { NavigationService } from '../../../services/navigation.service';
 
 @Component({
   selector: 'app-paginated-sortable-table',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule,
+  ],
   templateUrl: './paginated-sortable-table.component.html',
   styleUrls: ['./paginated-sortable-table.component.scss'],
 })
@@ -25,12 +32,16 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
   @Input() displayedColumns: string[] = [];
   @Input() dataSource = new MatTableDataSource<any>();
   @Input() columnLabels: { [key: string]: string } = {};
+  @Input() itemType: string = '';
   @Output() rowAction = new EventEmitter<{ type: string; element: any }>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private navigationService: NavigationService
+  ) {}
 
   ngOnInit() {}
 
@@ -48,7 +59,7 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
   }
 
   getTeamNames(teams: any[]): string {
-    return teams.map(team => team.name).join(', ');
+    return teams.map((team) => team.name).join(', ');
   }
 
   handleEdit(element: any): void {
@@ -57,5 +68,9 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
 
   handleDelete(element: any): void {
     this.rowAction.emit({ type: 'delete', element });
+  }
+
+  onRowClick(element: any): void {
+    this.navigationService.navigateTo(element, this.itemType);
   }
 }
