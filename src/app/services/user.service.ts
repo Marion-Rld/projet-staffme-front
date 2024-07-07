@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { User } from '../models/user.model';
 
@@ -24,11 +24,20 @@ export class UserService {
     return this.http.get(`${this.apiUrl}/user/${id}`);
   }
 
+  getUsersByIds(userIds: string[]): Observable<User[]> {
+    const requests = userIds.map((id) =>
+      this.http.get<User>(`${this.apiUrl}/user/${id}`)
+    );
+    return forkJoin(requests);
+  }
+
   updateUser(id: string, userData: User): Observable<any> {
     return this.http.patch(`${this.apiUrl}/user/${id}`, userData);
   }
 
   deleteUser(id: string): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/user/${id}`, { responseType: 'text' });
+    return this.http.delete(`${this.apiUrl}/user/${id}`, {
+      responseType: 'text',
+    });
   }
 }

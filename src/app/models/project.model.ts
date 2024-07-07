@@ -8,5 +8,5 @@ export interface Project {
   startDate: Date;
   endDate: Date;
   budget: number;
-  teams: (Team | string)[];
+  teams: Team[];
 }

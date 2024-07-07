@@ -1,0 +1,21 @@
+<div class="card">
+  <div class="card-header">
+    <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+    <div class="job">{{ user.job }}</div>
+    <div class="card-body">
+      <div class="skills">
+        <span class="skill" *ngFor="let skillName of skillNames">
+          {{ skillName }}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="separator"></div>
+    <div class="email">
+      <i class="material-icons">mail</i>
+      <span>{{ user.email }}</span>
+    </div>
+    <button class="view-profile">VOIR PROFIL</button>
+  </div>
+</div>

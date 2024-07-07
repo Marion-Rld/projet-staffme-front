@@ -82,7 +82,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   addProjectToTable(project: Project): void {
-    const updatedTeams = (project.teams as string[]).map((teamId: string) => {
+    const updatedTeams: Team[] = project.teams.map((teamId: string | Team) => {
       const team = this.teams.find((team) => team._id === teamId);
       return team ? team : ({ _id: teamId, name: 'Unknown' } as Team);
     });
