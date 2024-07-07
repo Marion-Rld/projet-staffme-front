@@ -1,1 +1,7 @@
-<p>project-detail works!</p>
+<div class="container">
+  <button mat-icon-button class="back-button" (click)="goBack()">
+    <mat-icon>chevron_left</mat-icon>
+    Retour
+  </button>
+  <app-project-card [project]="project"></app-project-card>
+</div>

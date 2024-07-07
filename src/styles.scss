@@ -118,6 +118,13 @@ $projet-staffme-front-theme: mat.define-light-theme((color: (primary: $custom-pr
         secondary: $custom-secondary ),
       typography: mat.define-typography-config()));
 
+$primary-color: mat.get-color-from-palette($custom-primary, 500);
+$accent-color: mat.get-color-from-palette($custom-accent, 500);
+$warn-color: mat.get-color-from-palette($custom-warn, 500);
+$secondary-color: mat.get-color-from-palette($custom-secondary, 500);
+$warn-contrast-color: mat.get-color-from-palette($custom-warn, contrast);
+$secondary-contrast-color: mat.get-color-from-palette($custom-secondary, contrast);
+
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.

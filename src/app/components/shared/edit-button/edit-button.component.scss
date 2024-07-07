@@ -1,0 +1,21 @@
+@use '../../../../styles.scss' as colors;
+
+.edit-button {
+    background-color: colors.$warn-color;
+    color: colors.$white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .edit-button mat-icon {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
