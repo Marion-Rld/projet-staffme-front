@@ -11,9 +11,10 @@ import { MatIconModule } from '@angular/material/icon';
 export class EditButtonComponent {
   @Input() icon: string = 'edit';
   @Input() text: string = '';
-  @Output() clickEvent = new EventEmitter<void>();
+  @Output() buttonClick = new EventEmitter<void>();
 
   onClick() {
-    this.clickEvent.emit();
+    console.log('Edit button clicked');
+    this.buttonClick.emit();
   }
 }

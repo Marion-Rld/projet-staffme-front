@@ -9,6 +9,7 @@ import { User } from '../../models/user.model';
 import { Team } from '../../models/team.model';
 import { Project } from '../../models/project.model';
 import { CommonModule } from '@angular/common';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-project-detail',
@@ -18,6 +19,7 @@ import { CommonModule } from '@angular/common';
     ProjectCardComponent,
     MatIconModule,
     CollaboratorCardComponent,
+    MatDialogModule,
   ],
   templateUrl: './project-detail.component.html',
   styleUrl: './project-detail.component.scss',

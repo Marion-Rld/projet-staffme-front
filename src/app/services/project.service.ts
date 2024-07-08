@@ -23,4 +23,11 @@ export class ProjectService {
   getProjectById(id: string): Observable<Project> {
     return this.http.get<Project>(`${this.apiUrl}/project/${id}`);
   }
+
+  updateProject(project: Project): Observable<Project> {
+    return this.http.patch<Project>(
+      `${this.apiUrl}/project/${project._id}`,
+      project
+    );
+  }
 }
