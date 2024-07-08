@@ -9,6 +9,8 @@ import { AdminGuard } from '../../src/app/guard/admin.guard';
 import { SuperAdminGuard } from './guard/superadmin.guard';
 import { ProjectsComponent } from './features/projects/projects.component';
 import { ProjectDetailComponent } from './features/project-detail/project-detail.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'; // Assurez-vous d'importer votre composant PageNotFound
+
 /*
 import { TeamsComponent } from './features/teams/teams.component';
 import { CollaboratorsComponent } from './features/collaborators/collaborators.component';
@@ -26,4 +28,5 @@ export const routes: Routes = [
       { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
       { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },
       { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] }*/
+    { path: '**', component: PageNotFoundComponent }  // Page non-trouvée
 ];
