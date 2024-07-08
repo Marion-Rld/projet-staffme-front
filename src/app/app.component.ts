@@ -58,9 +58,7 @@ export class AppComponent {
         )
       )
       .subscribe((event: NavigationEnd) => {
-        const url = event.urlAfterRedirects;
-        const isNotFoundRoute = !this.router.config.some(route => url === route.path);
-        this.showMainNav = !this.hideNavRoutes.includes(url) && !isNotFoundRoute;
+        this.showMainNav = !this.hideNavRoutes.includes(event.urlAfterRedirects);
         this.adjustContentMargin();
       });
   }
