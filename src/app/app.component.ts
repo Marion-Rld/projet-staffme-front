@@ -42,7 +42,7 @@ export class AppComponent {
   title = 'projet-staffme-front';
 
   showMainNav = true;
-  hideNavRoutes = ['/login', '/register', '/forgot-password']; // Routes où le MainNav doit être caché
+  hideNavRoutes = ['/login', '/register', '/forgot-password'];
 
   constructor(
     private router: Router,
@@ -58,9 +58,8 @@ export class AppComponent {
         )
       )
       .subscribe((event: NavigationEnd) => {
-        this.showMainNav = !this.hideNavRoutes.includes(
-          event.urlAfterRedirects
-        );
+        this.showMainNav = !this.hideNavRoutes.includes(event.urlAfterRedirects);
+        this.adjustContentMargin();
       });
   }
 
@@ -78,8 +77,12 @@ export class AppComponent {
     const content = this.elRef.nativeElement.querySelector('.content');
 
     if (sidebar && content) {
-      const sidebarWidth = sidebar.offsetWidth;
-      this.renderer.setStyle(content, 'marginLeft', `${sidebarWidth}px`);
+      if (this.showMainNav) {
+        const sidebarWidth = sidebar.offsetWidth;
+        this.renderer.setStyle(content, 'marginLeft', `${sidebarWidth}px`);
+      } else {
+        this.renderer.removeStyle(content, 'marginLeft');
+      }
     }
   }
 }
