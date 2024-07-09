@@ -69,10 +69,12 @@ export class EditProjectComponent implements OnInit {
       Validators.required,
       Validators.pattern('^[0-9]*$'),
     ]),
+    status: new FormControl('', Validators.required),
     teams: new FormControl<Team[]>([]),
   });
 
   teams: Team[] = [];
+  statuses: string[] = ['En cours', 'Terminé', 'En cours'];
 
   constructor(
     private projectService: ProjectService,
@@ -97,6 +99,7 @@ export class EditProjectComponent implements OnInit {
         endDate: this.formatDate(this.data.project.endDate),
         description: this.data.project.description,
         budget: this.data.project.budget.toString(),
+        status: this.data.project.status,
         teams: this.data.project.teams,
       });
     }
