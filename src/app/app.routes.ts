@@ -24,9 +24,9 @@ export const routes: Routes = [
     { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
     { path: 'projects/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
     { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
+    { path: '**', component: PageNotFoundComponent }  // Page non-trouvée
     /*
       { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
       { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },
       { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] }*/
-    { path: '**', component: PageNotFoundComponent }  // Page non-trouvée
 ];

@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import { Component, ElementRef, HostListener, Renderer2, AfterViewChecked } from '@angular/core';
 import {
   Router,
   RouterModule,
@@ -38,10 +38,10 @@ import { TopBarComponent } from '../app/components/nav/top-bar/top-bar.component
     MatDialogModule,
   ],
 })
-export class AppComponent {
+export class AppComponent implements AfterViewChecked {
   title = 'projet-staffme-front';
 
-  showMainNav = true;
+  showMainNav = false;
   hideNavRoutes = ['/login', '/register', '/forgot-password'];
 
   constructor(
@@ -58,12 +58,19 @@ export class AppComponent {
         )
       )
       .subscribe((event: NavigationEnd) => {
-        this.showMainNav = !this.hideNavRoutes.includes(event.urlAfterRedirects);
+        const url = event.urlAfterRedirects;
+        const isHideRoute = this.hideNavRoutes.includes(url);
+        const isKnownRoute = this.isRouteKnown(url);
+
+        this.showMainNav = !isHideRoute && isKnownRoute;
         this.adjustContentMargin();
       });
+
+    // Initial adjustment
+    this.adjustContentMargin();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewChecked() {
     this.adjustContentMargin();
   }
 
@@ -81,8 +88,17 @@ export class AppComponent {
         const sidebarWidth = sidebar.offsetWidth;
         this.renderer.setStyle(content, 'marginLeft', `${sidebarWidth}px`);
       } else {
-        this.renderer.removeStyle(content, 'marginLeft');
+        this.renderer.setStyle(content, 'marginLeft', '0');
       }
     }
+  }
+
+  private isRouteKnown(url: string): boolean {
+    const config = this.router.config;
+    return config.some(route => {
+      const path = route.path === '' ? '/' : `/${route.path}`;
+      const regex = new RegExp(`^${path.replace(/:[^\s/]+/, '[^/]+')}$`);
+      return regex.test(url);
+    });
   }
 }
