@@ -10,6 +10,7 @@ import { SuperAdminGuard } from './guard/superadmin.guard';
 import { ProjectsComponent } from './features/projects/projects.component';
 import { ProjectDetailComponent } from './features/project-detail/project-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'; // Assurez-vous d'importer votre composant PageNotFound
+import { TeamsComponent } from './features/teams/teams.component';
 
 /*
 import { TeamsComponent } from './features/teams/teams.component';
@@ -17,16 +18,16 @@ import { CollaboratorsComponent } from './features/collaborators/collaborators.c
 import { LogoutComponent } from './features/logout/logout.component';*/
 
 export const routes: Routes = [
-    { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent },
-    { path: 'forgot-password', component: ForgotPasswordComponent },
-    { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
-    { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
-    { path: 'projects/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
-    { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
-    { path: '**', component: PageNotFoundComponent }  // Page non-trouvée
-    /*
-      { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
-      { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },
-      { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] }*/
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+  { path: 'projects/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
+  { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
+  { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
+  { path: '**', component: PageNotFoundComponent }, // Page non-trouvée
+  /*
+  { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },
+  { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] }*/
 ];
