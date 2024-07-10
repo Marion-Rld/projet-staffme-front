@@ -1,0 +1,95 @@
+@use '../../../../styles.scss' as colors;
+
+.detail-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.detail-card-info {
+  flex: 1;
+}
+
+.title-and-collaborators {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.title-and-collaborators h1 {
+  font-size: 32px;
+  margin: 0;
+  margin-right: 20px;
+}
+
+.app-edit-button {
+  margin-left: 10px;
+}
+
+.collaborators-count {
+  background-color: colors.$secondary-color;
+  color: #666;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.detail-card-job {
+  font-size: 16px;
+  font-style: italic;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.detail-card-dates {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.detail-card-description {
+  font-size: 14px;
+  color: colors.$black;
+}
+
+.detail-card-contact-info {
+  display: flex;
+  justify-content: flex-start;
+  gap: 40px;
+}
+
+// .detail-card-contact-info > div {
+//   flex: 1;
+//   margin-right: 20px;
+// }
+
+.detail-card-contact-info span:first-child {
+  color: #666;
+  margin-bottom: 5px;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .title-and-collaborators {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title-and-collaborators h1 {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .detail-card-contact-info {
+    flex-direction: column;
+  }
+
+  .detail-card-contact-info > div {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}

@@ -1,6 +1,14 @@
 <div class="container">
   <app-back-button />
-  <app-project-card [project]="project"></app-project-card>
+  <app-detail-card
+    [name]="project.name"
+    [startDate]="project.startDate"
+    [endDate]="project.endDate"
+    [description]="project.description"
+    [collaboratorsCount]="getCollaboratorsText()"
+    [editComponent]="editProjectComponent"
+    [data]="project"
+  ></app-detail-card>
   <div class="card-wrapper">
     <div *ngFor="let user of teamUsers">
       <app-collaborator-card [user]="user"></app-collaborator-card>

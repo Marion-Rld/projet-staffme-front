@@ -4,6 +4,7 @@ import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { BackButtonComponent } from '../../components/shared/back-button/back-button.component';
+import { DetailCardComponent } from '../../components/shared/detail-card/detail-card.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -12,7 +13,7 @@ import { BackButtonComponent } from '../../components/shared/back-button/back-bu
     CommonModule,
     MatIconModule,
     BackButtonComponent,
-    BackButtonComponent,
+    DetailCardComponent,
   ],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
@@ -41,7 +42,6 @@ export class UserProfileComponent implements OnInit {
   loadUserData() {
     this.userService.getUserById(this.userId).subscribe((data) => {
       this.userData = data;
-
       console.log('User data:', this.userData);
     });
   }

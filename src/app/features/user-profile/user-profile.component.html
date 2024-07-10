@@ -1,6 +1,14 @@
 <div class="container">
-  <app-back-button />
-  <div class="card-wrapper">
-    Profil de: {{ userData.firstName }} {{ userData.lastName }}
+  <app-back-button></app-back-button>
+  <div class="card-wrapper" *ngIf="userData">
+    <app-detail-card
+      [firstName]="userData.firstName"
+      [lastName]="userData.lastName"
+      [email]="userData.email"
+      [phoneNumber]="userData.phoneNumber"
+      [job]="userData.job"
+      [postalAddress]="userData.postalAddress"
+      [data]="userData"
+    ></app-detail-card>
   </div>
 </div>

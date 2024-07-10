@@ -1,0 +1,37 @@
+<div class="detail-card-header">
+  <div class="detail-card-info">
+    <div class="title-and-collaborators">
+      <h1 *ngIf="name; else fullName">{{ name }}</h1>
+      <ng-template #fullName>
+        <h1>{{ firstName }} {{ lastName }}</h1>
+      </ng-template>
+      <span
+        *ngIf="collaboratorsCount !== null && collaboratorsCount !== undefined"
+        class="collaborators-count"
+      >
+        {{ collaboratorsCount }}
+      </span>
+    </div>
+    <p *ngIf="job" class="detail-card-job">{{ job }}</p>
+    <div *ngIf="startDate && endDate" class="detail-card-dates">
+      Du {{ startDate | date : "dd MMMM yyyy" }} au
+      {{ endDate | date : "dd MMMM yyyy" }}
+    </div>
+    <p *ngIf="description" class="detail-card-description">{{ description }}</p>
+    <div class="detail-card-contact-info">
+      <div *ngIf="email" class="detail-card-email">
+        <span>Email</span>
+        <span>{{ email }}</span>
+      </div>
+      <div *ngIf="phoneNumber" class="detail-card-phone">
+        <span>Téléphone</span>
+        <span>{{ phoneNumber }}</span>
+      </div>
+      <div *ngIf="postalAddress" class="detail-card-address">
+        <span>Adresse postale</span>
+        <span>{{ postalAddress }}</span>
+      </div>
+    </div>
+  </div>
+  <app-edit-button (buttonClick)="openEditDialog()"></app-edit-button>
+</div>

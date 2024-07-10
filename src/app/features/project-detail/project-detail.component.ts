@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProjectCardComponent } from '../../components/projects/project-card/project-card.component';
 import { ProjectService } from '../../services/project.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,6 +11,8 @@ import { Project } from '../../models/project.model';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BackButtonComponent } from '../../components/shared/back-button/back-button.component';
+import { DetailCardComponent } from '../../components/shared/detail-card/detail-card.component';
+import { EditProjectComponent } from '../../components/projects/edit-project/edit-project.component';
 
 @Component({
   selector: 'app-project-detail',
@@ -22,12 +24,13 @@ import { BackButtonComponent } from '../../components/shared/back-button/back-bu
     CollaboratorCardComponent,
     MatDialogModule,
     BackButtonComponent,
+    DetailCardComponent,
   ],
   templateUrl: './project-detail.component.html',
   styleUrl: './project-detail.component.scss',
 })
 export class ProjectDetailComponent implements OnInit {
-  project: Project = {
+  @Input() project: Project = {
     _id: '',
     name: '',
     description: '',
@@ -38,6 +41,7 @@ export class ProjectDetailComponent implements OnInit {
     teams: [],
   };
   teamUsers: User[] = [];
+  editProjectComponent = EditProjectComponent;
 
   constructor(
     private route: ActivatedRoute,
@@ -80,5 +84,13 @@ export class ProjectDetailComponent implements OnInit {
         this.teamUsers = users;
       });
     }
+  }
+
+  getCollaboratorsText(): string {
+    const count = this.project.teams.reduce(
+      (acc: number, team: any) => acc + team.users.length,
+      0
+    );
+    return `${count} collaborateur${count > 1 ? 's' : ''}`;
   }
 }
