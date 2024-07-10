@@ -39,6 +39,8 @@ export class TopBarComponent {
           this.title = 'Liste des utilisateurs';
         } else if (/^\/projects\/[^\/]+$/.test(event.url)) {
           this.title = 'Projet';
+        } else if (/^\/profile\/[^\/]+$/.test(event.url)) {
+          this.title = 'Profil';
         }
       });
   }
