@@ -2,11 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { BackButtonComponent } from '../../components/shared/back-button/back-button.component';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    BackButtonComponent,
+    BackButtonComponent,
+  ],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
   providers: [UserService],
@@ -25,6 +32,10 @@ export class UserProfileComponent implements OnInit {
       this.userId = params['id'];
       this.loadUserData();
     });
+  }
+
+  goBack(): void {
+    window.history.back();
   }
 
   loadUserData() {

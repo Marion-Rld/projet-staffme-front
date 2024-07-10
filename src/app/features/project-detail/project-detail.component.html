@@ -1,8 +1,5 @@
 <div class="container">
-  <button mat-icon-button class="back-button" (click)="goBack()">
-    <mat-icon>chevron_left</mat-icon>
-    Retour
-  </button>
+  <app-back-button />
   <app-project-card [project]="project"></app-project-card>
   <div class="card-wrapper">
     <div *ngFor="let user of teamUsers">

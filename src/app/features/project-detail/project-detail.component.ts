@@ -10,6 +10,7 @@ import { Team } from '../../models/team.model';
 import { Project } from '../../models/project.model';
 import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
+import { BackButtonComponent } from '../../components/shared/back-button/back-button.component';
 
 @Component({
   selector: 'app-project-detail',
@@ -20,6 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatIconModule,
     CollaboratorCardComponent,
     MatDialogModule,
+    BackButtonComponent,
   ],
   templateUrl: './project-detail.component.html',
   styleUrl: './project-detail.component.scss',
