@@ -3,7 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
-import { UserDialogComponent } from '../../components/user-dialog/user-dialog.component';
+import { UserDialogComponent } from '../../components/users/user-dialog/user-dialog.component';
 import { PaginatedSortableTableComponent } from '../../components/shared/paginated-sortable-table/paginated-sortable-table.component';
 import { SearchInputComponent } from '../../components/shared/search-input/search-input.component';
 import { AddButtonComponent } from '../../components/shared/add-button/add-button.component';
@@ -82,7 +82,7 @@ export class UserListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('User created:', result);
-        this.loadUsers(); // Refresh the table after adding a user
+        this.loadUsers();
       }
     });
   }
@@ -97,7 +97,7 @@ export class UserListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('User updated:', result);
-        this.loadUsers(); // Refresh the table after updating a user
+        this.loadUsers();
       }
     });
   }

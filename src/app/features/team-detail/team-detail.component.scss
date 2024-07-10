@@ -1,0 +1,97 @@
+// Couleurs
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$background-color: #f8f9fa;
+$text-color: #343a40;
+
+// Polices
+$font-family: 'Roboto', sans-serif;
+$font-size-base: 16px;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+// Conteneur de l'équipe
+.team-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px;
+  background-color: $background-color;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// En-tête de l'équipe
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+
+  h1 {
+    font-size: 24px;
+    font-weight: $font-weight-bold;
+    color: $text-color;
+  }
+}
+
+// Boutons de l'équipe
+.team-buttons {
+  display: flex;
+
+  button {
+    margin-left: 8px;
+    font-size: $font-size-base;
+    font-weight: $font-weight-normal;
+    color: $primary-color;
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: rgba($primary-color, 0.1);
+    }
+  }
+}
+
+// Utilisateurs et projets
+.team-users,
+.team-projects {
+  margin-bottom: 32px;
+
+  h2 {
+    font-size: 20px;
+    font-weight: $font-weight-bold;
+    color: $text-color;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      font-size: $font-size-base;
+      font-weight: $font-weight-normal;
+      color: $secondary-color;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+// Bouton "Retour"
+.team-back-button {
+  font-size: $font-size-base;
+  font-weight: $font-weight-normal;
+  color: $text-color;
+  background-color: $primary-color;
+  border-radius: 4px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}

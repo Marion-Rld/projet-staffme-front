@@ -11,6 +11,7 @@ import { ProjectsComponent } from './features/projects/projects.component';
 import { ProjectDetailComponent } from './features/project-detail/project-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'; // Assurez-vous d'importer votre composant PageNotFound
 import { TeamsComponent } from './features/teams/teams.component';
+import { TeamDetailComponent } from './features/team-detail/team-detail.component';
 
 /*
 import { TeamsComponent } from './features/teams/teams.component';
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: 'projects/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
   { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
   { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
+  { path: 'teams/:id', component: TeamDetailComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent }, // Page non-trouvée
   /*
   { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },

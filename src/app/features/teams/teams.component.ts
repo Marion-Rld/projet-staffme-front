@@ -6,11 +6,15 @@ import { ProjectService } from '../../services/project.service';
 import { Team } from '../../models/team.model';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { SearchInputComponent } from '../../components/shared/search-input/search-input.component';
+import { AddButtonComponent } from '../../components/shared/add-button/add-button.component';
+import { TeamDialogComponent } from '../../components/teams/team-dialog/team-dialog.component';
 
 @Component({
   selector: 'app-teams',
   standalone: true,
-  imports: [PaginatedSortableTableComponent, MatCardModule, MatIconModule],
+  imports: [PaginatedSortableTableComponent, MatCardModule, MatIconModule, SearchInputComponent, AddButtonComponent, TeamDialogComponent],
   templateUrl: './teams.component.html',
   styleUrls: ['./teams.component.scss'],
 })
@@ -23,9 +27,12 @@ export class TeamsComponent implements OnInit {
     associatedProjects: 'Projets associés'
   };
 
+  dataSource = new MatTableDataSource<Team & { memberCount: number, associatedProjects: string }>([]);
+
   constructor(
     private teamService: TeamService,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +43,30 @@ export class TeamsComponent implements OnInit {
         associatedProjects: this.getTeamProjectNames(team)
       }));
       this.teams.data = transformedTeams;
+    });
+  }
+
+  applyFilter(filterValue: string): void {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  openCreateTeamDialog(): void {
+    const dialogRef = this.dialog.open(TeamDialogComponent, {
+      width: '400px',
+      data: { team: null }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.teamService.getTeams().subscribe(teams => {
+          const transformedTeams = teams.map(team => ({
+            ...team,
+            memberCount: team.users?.length || 0,
+            associatedProjects: this.getTeamProjectNames(team)
+          }));
+          this.teams.data = transformedTeams;
+        });
+      }
     });
   }
 

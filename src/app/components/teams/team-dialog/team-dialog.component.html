@@ -1,0 +1,37 @@
+<h1 mat-dialog-title>{{ data.team ? 'Modifier Équipe' : 'Créer Équipe' }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="teamForm">
+    <mat-form-field appearance="fill">
+      <mat-label>Nom de l'équipe</mat-label>
+      <input matInput formControlName="name" />
+      <mat-error *ngIf="teamForm.get('name')?.hasError('required')">
+        Le nom de l'équipe est obligatoire.
+      </mat-error>
+      <mat-error *ngIf="teamForm.get('name')?.hasError('minlength')">
+        Le nom de l'équipe doit contenir au moins 2 caractères.
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Utilisateurs associés</mat-label>
+      <mat-select formControlName="users" multiple>
+        <mat-option *ngFor="let user of users" [value]="user._id">
+          {{ user.lastName }} {{ user.firstName }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Projets associés</mat-label>
+      <mat-select formControlName="projects" multiple>
+        <mat-option *ngFor="let project of projects" [value]="project._id">
+          {{ project.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Annuler</button>
+  <button mat-button (click)="onSave()" [disabled]="!teamForm.valid">Enregistrer</button>
+</div>

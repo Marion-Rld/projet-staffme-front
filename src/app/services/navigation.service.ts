@@ -18,6 +18,12 @@ export class NavigationService {
       case 'project':
         this.router.navigate(['/projects', id]);
         break;
+      case 'team':
+        this.router.navigate(['/teams', id]);
+        break;
+      case 'user':
+        this.router.navigate(['/users', id]);
+        break;
       default:
         console.error('Unknown item type', itemType);
     }

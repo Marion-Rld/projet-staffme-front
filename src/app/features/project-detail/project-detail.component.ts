@@ -69,14 +69,13 @@ export class ProjectDetailComponent implements OnInit {
 
     this.project.teams.forEach((team: Team) => {
       if (team.users) {
-        usersIds.push(...team.users);
+        usersIds.push(...team.users.toString().split(','));
       }
     });
 
     if (usersIds.length > 0) {
       this.userService.getUsersByIds(usersIds).subscribe((users) => {
         this.teamUsers = users;
-        console.log('Loaded team users:', this.teamUsers);
       });
     }
   }
