@@ -12,6 +12,7 @@ import { ProjectDetailComponent } from './features/project-detail/project-detail
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'; // Assurez-vous d'importer votre composant PageNotFound
 import { TeamsComponent } from './features/teams/teams.component';
 import { TeamDetailComponent } from './features/team-detail/team-detail.component';
+import { UserProfileComponent } from './features/user-profile/user-profile.component';
 
 /*
 import { TeamsComponent } from './features/teams/teams.component';
@@ -24,10 +25,27 @@ export const routes: Routes = [
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
-  { path: 'projects/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
-  { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
+  {
+    path: 'projects/:id',
+    component: ProjectDetailComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'user-list',
+    component: UserListComponent,
+    canActivate: [SuperAdminGuard],
+  },
   { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
-  { path: 'teams/:id', component: TeamDetailComponent, canActivate: [AuthGuard] },
+  {
+    path: 'teams/:id',
+    component: TeamDetailComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'profile/:id',
+    component: UserProfileComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', component: PageNotFoundComponent }, // Page non-trouvée
   /*
   { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },
