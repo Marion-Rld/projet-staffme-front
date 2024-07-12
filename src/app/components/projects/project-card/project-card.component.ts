@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { EditButtonComponent } from '../../shared/edit-button/edit-button.component';
-import { EditProjectComponent } from '../edit-project/edit-project.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableDataSource } from '@angular/material/table';
 import { Project } from '../../../models/project.model';
+import { ProjectDialogComponent } from '../project-dialog/project-dialog.component'; // Import the ProjectDialogComponent
 
 @Component({
   selector: 'app-project-card',
@@ -15,12 +15,11 @@ import { Project } from '../../../models/project.model';
     CommonModule,
     MatIconModule,
     EditButtonComponent,
-    EditProjectComponent,
     MatFormFieldModule,
     MatDialogModule,
   ],
   templateUrl: './project-card.component.html',
-  styleUrl: './project-card.component.scss',
+  styleUrls: ['./project-card.component.scss'],
 })
 export class ProjectCardComponent {
   @Input() project: any;
@@ -41,7 +40,7 @@ export class ProjectCardComponent {
 
   openEditProjectDialog(): void {
     console.log('Opening edit project dialog');
-    const dialogRef = this.dialog.open(EditProjectComponent, {
+    const dialogRef = this.dialog.open(ProjectDialogComponent, {
       width: '800px',
       panelClass: 'custom-modal',
       data: { project: this.project },

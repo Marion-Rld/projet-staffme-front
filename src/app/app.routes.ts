@@ -28,6 +28,7 @@ export const routes: Routes = [
   { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
   { path: 'teams', component: TeamsComponent, canActivate: [AuthGuard] },
   { path: 'teams/:id', component: TeamDetailComponent, canActivate: [AuthGuard] },
+  { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
   { path: '**', component: PageNotFoundComponent }, // Page non-trouvée
   /*
   { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },

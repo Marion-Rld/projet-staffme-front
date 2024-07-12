@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Team } from '../models/team.model';
 
@@ -22,6 +22,13 @@ export class TeamService {
 
   getTeamById(id: string): Observable<Team> {
     return this.http.get<Team>(`${this.apiUrl}/team/${id}`);
+  }
+
+  getTeamsByIds(teamIds: string[]): Observable<Team[]> {
+    const requests = teamIds.map((id) =>
+      this.http.get<Team>(`${this.apiUrl}/team/${id}`)
+    );
+    return forkJoin(requests);
   }
 
   updateTeam(id: string, teamdata: Team): Observable<Team> {
