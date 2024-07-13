@@ -1,6 +1,6 @@
 <div class="container">
   <h1 mat-dialog-title>
-    {{ data.entity ? "Modifier le projet" : "Créer projet" }}
+    {{ data.entity ? "Modifier le projet" : "Créer un projet" }}
   </h1>
   <div mat-dialog-content>
     <form [formGroup]="projectForm">
@@ -95,7 +95,7 @@
       (click)="onSave()"
       [disabled]="!projectForm.valid"
     >
-      Modifier
+      {{ data.entity ? "Modifier" : "Créer" }}
     </button>
   </div>
 </div>
