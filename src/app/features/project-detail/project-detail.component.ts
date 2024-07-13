@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BackButtonComponent } from '../../components/shared/back-button/back-button.component';
 import { DetailCardComponent } from '../../components/shared/detail-card/detail-card.component';
+import { ProjectDialogComponent } from '../../components/projects/project-dialog/project-dialog.component';
 
 @Component({
   selector: 'app-project-detail',
@@ -24,6 +25,7 @@ import { DetailCardComponent } from '../../components/shared/detail-card/detail-
     MatDialogModule,
     BackButtonComponent,
     DetailCardComponent,
+    ProjectDialogComponent,
   ],
   templateUrl: './project-detail.component.html',
   styleUrl: './project-detail.component.scss',
@@ -40,6 +42,7 @@ export class ProjectDetailComponent implements OnInit {
     teams: [],
   };
   teamUsers: User[] = [];
+  projectDialogComponent = ProjectDialogComponent;
 
   constructor(
     private route: ActivatedRoute,
@@ -62,7 +65,6 @@ export class ProjectDetailComponent implements OnInit {
 
   loadProject(projectId: string): void {
     this.projectService.getProjectById(projectId).subscribe((project) => {
-      console.log(project);
       this.project = project;
       this.loadTeamUsers(project.teams[0]);
     });

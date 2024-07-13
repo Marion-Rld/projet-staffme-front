@@ -1,34 +1,47 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { CommonModule } from '@angular/common';
 import { TeamService } from '../../services/team.service';
 import { UserService } from '../../services/user.service';
-import { TeamDialogComponent } from '../../components/teams/team-dialog/team-dialog.component';
-import { User } from '../../models/user.model';
 import { Team } from '../../models/team.model';
+import { User } from '../../models/user.model';
 import { Project } from '../../models/project.model';
-import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
-import { DeleteButtonComponent } from '../../components/shared/delete-button/delete-button.component';
-import { EditButtonComponent } from '../../components/shared/edit-button/edit-button.component';
+import { CollaboratorCardComponent } from '../../components/projects/collaborator-card/collaborator-card.component';
+import { BackButtonComponent } from '../../components/shared/back-button/back-button.component';
+import { DetailCardComponent } from '../../components/shared/detail-card/detail-card.component';
+import { TeamDialogComponent } from '../../components/teams/team-dialog/team-dialog.component';
 
 @Component({
   selector: 'app-team-detail',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatButtonModule, DeleteButtonComponent, EditButtonComponent],
+  imports: [
+    CommonModule,
+    MatIconModule,
+    MatDialogModule,
+    CollaboratorCardComponent,
+    BackButtonComponent,
+    DetailCardComponent,
+    TeamDialogComponent,
+  ],
   templateUrl: './team-detail.component.html',
   styleUrls: ['./team-detail.component.scss'],
 })
 export class TeamDetailComponent implements OnInit {
-  team: Team | null = null;
+  @Input() team: Team = {
+    _id: '',
+    name: '',
+    users: [],
+    projects: [],
+  };
   teamUsers: User[] = [];
+  teamDialogComponent = TeamDialogComponent;
 
   constructor(
     private route: ActivatedRoute,
     private teamService: TeamService,
-    private userService: UserService,
-    private dialog: MatDialog
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -53,33 +66,15 @@ export class TeamDetailComponent implements OnInit {
 
   loadTeamUsers(team: Team): void {
     if (team.users) {
-      const userIds = team.users.map(user => user._id);
+      const userIds = team.users.map((user) => user._id);
       this.userService.getUsersByIds(userIds).subscribe((users) => {
         this.teamUsers = users;
       });
     }
   }
 
-  deleteTeam(): void {
-    if (this.team) {
-      this.teamService.deleteTeam(this.team._id).subscribe(() => {
-        this.goBack();
-      });
-    }
-  }  
-
-  openEditTeamDialog(): void {
-    if (this.team) {
-      const dialogRef = this.dialog.open(TeamDialogComponent, {
-        width: '400px',
-        data: { team: this.team }
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          this.loadTeam(this.team!._id);
-        }
-      });
-    }
+  getCollaboratorsText(): string {
+    const count = this.team.users.length;
+    return `${count} collaborateur${count > 1 ? 's' : ''}`;
   }
 }

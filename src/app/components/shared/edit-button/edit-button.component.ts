@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [MatIconModule],
   templateUrl: './edit-button.component.html',
-  styleUrl: './edit-button.component.scss',
+  styleUrls: ['./edit-button.component.scss'],
 })
 export class EditButtonComponent {
   @Input() icon: string = 'edit';

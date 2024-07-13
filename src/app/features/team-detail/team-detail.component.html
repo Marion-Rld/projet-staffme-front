@@ -1,22 +1,14 @@
-<div *ngIf="team" class="team-container">
-  <div class="team-header">
-    <h1>{{ team.name }}</h1>
-    <div class="team-buttons">
-      <app-edit-button (buttonClick)="openEditTeamDialog()"></app-edit-button>
-      <app-delete-button [itemType]="'équipe'" (confirmDelete)="deleteTeam()"></app-delete-button>
+<div class="container">
+  <app-back-button></app-back-button>
+  <app-detail-card
+    [name]="team.name"
+    [collaboratorsCount]="getCollaboratorsText()"
+    [data]="team"
+    [editComponent]="teamDialogComponent"
+  ></app-detail-card>
+  <div class="card-wrapper">
+    <div *ngFor="let user of teamUsers">
+      <app-collaborator-card [user]="user"></app-collaborator-card>
     </div>
   </div>
-  <div class="team-users">
-    <h2>Utilisateurs</h2>
-    <ul>
-      <li *ngFor="let user of teamUsers">{{ user.firstName }} {{ user.lastName }}</li>
-    </ul>
-  </div>
-  <div class="team-projects">
-    <h2>Projets associés</h2>
-    <ul>
-      <li *ngFor="let project of team.projects">{{ project.name }}</li>
-    </ul>
-  </div>
-  <button mat-button class="team-back-button" (click)="goBack()">Retour</button>
 </div>

@@ -6,7 +6,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableDataSource } from '@angular/material/table';
 import { Project } from '../../../models/project.model';
-import { ProjectDialogComponent } from '../project-dialog/project-dialog.component'; // Import the ProjectDialogComponent
+import { ProjectDialogComponent } from '../project-dialog/project-dialog.component';
 
 @Component({
   selector: 'app-project-card',

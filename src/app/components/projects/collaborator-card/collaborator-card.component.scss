@@ -1,85 +1,85 @@
 @use '../../../../styles.scss' as colors;
 
 .card {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 16px;
-    width: 263px;
-    min-height: 225px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .card-header {
-    margin-bottom: 16px;
-  }
-  
-  .card-header h2 {
-    margin: 0;
-    font-size: 1.25em;
-  }
-  
-  .card-header .job {
-    padding: 3px 0;
-    font-size: 12px;
-    color: colors.$black;
-    font-style: italic;
-  }
-  
-  .skills {
-    margin-bottom: 16px;
-  }
-  
-  .skill {
-    display: inline-block;
-    background-color: rgba(colors.$accent-color, 0.40);;
-    color: colors.$accent-color;
-    border-radius: 16px;
-    padding: 4px 8px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    margin-top: 10px;
-    font-size: 14px;
-  }
-  
-  .email {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-    color: #666;
-    font-size: 14px;
-  }
-  
-  .email i {
-    margin-right: 5px;
-    font-size: 16px;
-  }
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 240px;
+  min-height: 225px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 
-  .separator {
-    border-top: 1px solid #ddd;
-    margin: 16px 0;
-  }
-  
-  .view-profile {
-    display: block;
-    width: 100%;
-    padding: 8px;
-    background-color: #F9F9F9;
-    color: colors.$black;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .view-profile:hover {
-    color: colors.$primary-color;
-  }
-  
+.card-header {
+  margin-bottom: 16px;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.25em;
+}
+
+.card-header .job {
+  padding: 3px 0;
+  font-size: 12px;
+  color: colors.$black;
+  font-style: italic;
+}
+
+.skills {
+  margin-bottom: 16px;
+}
+
+.skill {
+  display: inline-block;
+  background-color: rgba(colors.$accent-color, 0.40);
+  color: colors.$accent-color;
+  border-radius: 16px;
+  padding: 4px 8px;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.email {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  color: #666;
+  font-size: 14px;
+}
+
+.email i {
+  margin-right: 5px;
+  font-size: 16px;
+}
+
+.separator {
+  border-top: 1px solid #ddd;
+  margin: 16px 0;
+}
+
+.view-profile {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  background-color: #F9F9F9;
+  color: colors.$black;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.view-profile:hover {
+  color: colors.$primary-color;
+}
+
