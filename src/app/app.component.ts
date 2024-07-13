@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { TopBarComponent } from '../app/components/nav/top-bar/top-bar.component';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-root',
@@ -36,6 +37,7 @@ import { TopBarComponent } from '../app/components/nav/top-bar/top-bar.component
     MatIconModule,
     MatTableModule,
     MatDialogModule,
+    MatNativeDateModule
   ],
 })
 export class AppComponent implements AfterViewChecked {

@@ -46,6 +46,7 @@ export const routes: Routes = [
     component: UserProfileComponent,
     canActivate: [AuthGuard],
   },
+  { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
   { path: '**', component: PageNotFoundComponent }, // Page non-trouvée
   /*
   { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },

@@ -63,15 +63,10 @@ export class TeamDialogComponent implements OnInit {
 
     if (this.isEditMode && this.data.team) {
       const userIds = this.data.team.users.map(user => user._id);
-      this.userService.getUsersByIds(userIds).subscribe(users => {
-        this.users = users;
-        this.teamForm.patchValue({
-          users: userIds
-        });
-      });
-
       const projectIds = this.data.team.projects.map(project => project._id);
+
       this.teamForm.patchValue({
+        users: userIds,
         projects: projectIds
       });
     }
