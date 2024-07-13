@@ -1,0 +1,39 @@
+@use '../../../../styles.scss' as colors;
+
+.container {
+    border-radius: 8px;
+    padding: 0 30px 20px 3cqmin;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 20px;
+  
+    .form-left,
+    .form-right {
+      width: 48%;
+    }
+  
+    mat-form-field {
+      width: 100%;
+    }
+  }
+  
+  .dialog-actions-centered {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  
+    button {
+      margin: 0 10px;
+      text-transform: uppercase;
+    }
+
+    .validate-button {
+        background-color: colors.$accent-color;
+        color: colors.$white;
+    }
+  }
+  
