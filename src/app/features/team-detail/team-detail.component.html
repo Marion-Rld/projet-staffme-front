@@ -5,6 +5,7 @@
     [collaboratorsCount]="getCollaboratorsText()"
     [data]="team"
     [editComponent]="teamDialogComponent"
+    (entityUpdated)="refreshTeam()"
   ></app-detail-card>
   <div class="card-wrapper">
     <div *ngFor="let user of teamUsers">

@@ -77,4 +77,10 @@ export class TeamDetailComponent implements OnInit {
     const count = this.team.users.length;
     return `${count} collaborateur${count > 1 ? 's' : ''}`;
   }
+
+  refreshTeam(): void {
+    if (this.team._id) {
+      this.loadTeam(this.team._id);
+    }
+  }
 }

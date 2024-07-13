@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { EditButtonComponent } from '../../shared/edit-button/edit-button.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-detail-card',
@@ -25,6 +26,7 @@ export class DetailCardComponent {
   @Input() collaboratorsCount?: string;
   @Input() description?: string;
   @Input() data!: any;
+  @Output() entityUpdated = new EventEmitter<void>();
 
   constructor(public dialog: MatDialog) {}
 
@@ -38,6 +40,7 @@ export class DetailCardComponent {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('Entity updated:', result);
+        this.entityUpdated.emit(); // Émettre l'événement sans données
       }
     });
   }

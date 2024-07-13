@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../services/project.service';
@@ -27,7 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatOptionModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
   templateUrl: './project-dialog.component.html',
   styleUrls: ['./project-dialog.component.scss'],
@@ -42,29 +42,35 @@ export class ProjectDialogComponent implements OnInit {
     private projectService: ProjectService,
     private teamService: TeamService,
     public dialogRef: MatDialogRef<ProjectDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { project: Project | null }
+    @Inject(MAT_DIALOG_DATA) public data: { entity: Project | null }
   ) {
-    this.isEditMode = !!data.project;
+    this.isEditMode = !!data.entity;
     this.projectForm = this.fb.group({
-      name: [data.project?.name || '', [Validators.required, Validators.minLength(2)]],
-      description: [data.project?.description || '', [Validators.required]],
-      status: [data.project?.status || '', [Validators.required]],
-      startDate: [data.project?.startDate || '', [Validators.required]],
-      endDate: [data.project?.endDate || '', [Validators.required]],
-      budget: [data.project?.budget || '', [Validators.required, Validators.min(0)]],
-      teams: [data.project?.teams?.map(team => team._id) || []]
+      name: [
+        data.entity?.name || '',
+        [Validators.required, Validators.minLength(2)],
+      ],
+      description: [data.entity?.description || '', [Validators.required]],
+      status: [data.entity?.status || '', [Validators.required]],
+      startDate: [data.entity?.startDate || '', [Validators.required]],
+      endDate: [data.entity?.endDate || '', [Validators.required]],
+      budget: [
+        data.entity?.budget || '',
+        [Validators.required, Validators.min(0)],
+      ],
+      teams: [data.entity?.teams?.map((team) => team._id) || []],
     });
   }
 
   ngOnInit() {
-    this.teamService.getTeams().subscribe(teams => {
+    this.teamService.getTeams().subscribe((teams) => {
       this.teams = teams;
     });
 
-    if (this.isEditMode && this.data.project) {
-      const teamIds = this.data.project.teams.map(team => team._id);
+    if (this.isEditMode && this.data.entity) {
+      const teamIds = this.data.entity.teams.map((team) => team._id);
       this.projectForm.patchValue({
-        teams: teamIds
+        teams: teamIds,
       });
     }
   }
@@ -72,32 +78,44 @@ export class ProjectDialogComponent implements OnInit {
   onSave(): void {
     if (this.projectForm.valid) {
       const formValues = this.projectForm.value;
+
+      const startDate =
+        formValues.startDate instanceof Date
+          ? formValues.startDate
+          : new Date(formValues.startDate);
+      const endDate =
+        formValues.endDate instanceof Date
+          ? formValues.endDate
+          : new Date(formValues.endDate);
+
       const projectPayload = {
         ...formValues,
         teams: formValues.teams,
-        startDate: this.projectForm.value.startDate.toISOString(),
-        endDate: this.projectForm.value.endDate.toISOString()
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
       };
 
       console.log('Project payload:', projectPayload);
 
-      if (this.isEditMode && this.data.project && this.data.project._id) {
-        this.projectService.updateProject(this.data.project._id, projectPayload).subscribe({
-          next: result => {
-            this.dialogRef.close(result);
-          },
-          error: error => {
-            console.error('Error updating project:', error);
-          }
-        });
+      if (this.isEditMode && this.data.entity && this.data.entity._id) {
+        this.projectService
+          .updateProject(this.data.entity._id, projectPayload)
+          .subscribe({
+            next: (result) => {
+              this.dialogRef.close(result);
+            },
+            error: (error) => {
+              console.error('Error updating project:', error);
+            },
+          });
       } else {
         this.projectService.createProject(projectPayload).subscribe({
-          next: result => {
+          next: (result) => {
             this.dialogRef.close(result);
           },
-          error: error => {
+          error: (error) => {
             console.error('Error creating project:', error);
-          }
+          },
         });
       }
     }

@@ -93,4 +93,10 @@ export class ProjectDetailComponent implements OnInit {
     );
     return `${count} collaborateur${count > 1 ? 's' : ''}`;
   }
+
+  refreshProject(): void {
+    if (this.project._id) {
+      this.loadProject(this.project._id);
+    }
+  }
 }

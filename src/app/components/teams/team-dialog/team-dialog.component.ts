@@ -25,7 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     ReactiveFormsModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   templateUrl: './team-dialog.component.html',
   styleUrls: ['./team-dialog.component.scss'],
@@ -42,32 +42,37 @@ export class TeamDialogComponent implements OnInit {
     private projectService: ProjectService,
     private userService: UserService,
     public dialogRef: MatDialogRef<TeamDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { team: Team }
+    @Inject(MAT_DIALOG_DATA) public data: { entity: Team }
   ) {
-    this.isEditMode = !!data.team;
+    this.isEditMode = !!data.entity;
     this.teamForm = this.fb.group({
-      name: [data.team?.name || '', [Validators.required, Validators.minLength(2)]],
-      users: [data.team?.users?.map(user => user._id) || []],
-      projects: [data.team?.projects?.map(project => project._id) || []]
+      name: [
+        data.entity?.name || '',
+        [Validators.required, Validators.minLength(2)],
+      ],
+      users: [data.entity?.users?.map((user) => user._id) || []],
+      projects: [data.entity?.projects?.map((project) => project._id) || []],
     });
   }
 
   ngOnInit() {
-    this.projectService.getProjects().subscribe(projects => {
+    this.projectService.getProjects().subscribe((projects) => {
       this.projects = projects;
     });
 
-    this.userService.getUsers().subscribe(users => {
+    this.userService.getUsers().subscribe((users) => {
       this.users = users;
     });
 
-    if (this.isEditMode && this.data.team) {
-      const userIds = this.data.team.users.map(user => user._id);
-      const projectIds = this.data.team.projects.map(project => project._id);
+    if (this.isEditMode && this.data.entity) {
+      const userIds = this.data.entity.users.map((user) => user._id);
+      const projectIds = this.data.entity.projects.map(
+        (project) => project._id
+      );
 
       this.teamForm.patchValue({
         users: userIds,
-        projects: projectIds
+        projects: projectIds,
       });
     }
   }
@@ -78,28 +83,30 @@ export class TeamDialogComponent implements OnInit {
       const teamPayload = {
         ...formValues,
         users: formValues.users,
-        projects: formValues.projects
+        projects: formValues.projects,
       };
 
       console.log('Team payload:', teamPayload);
 
-      if (this.isEditMode && this.data.team) {
-        this.teamService.updateTeam(this.data.team._id, teamPayload).subscribe({
-          next: result => {
-            this.dialogRef.close(result);
-          },
-          error: error => {
-            console.error('Error updating team:', error);
-          }
-        });
+      if (this.isEditMode && this.data.entity._id) {
+        this.teamService
+          .updateTeam(this.data.entity._id, teamPayload)
+          .subscribe({
+            next: (result) => {
+              this.dialogRef.close(result);
+            },
+            error: (error) => {
+              console.error('Error updating team:', error);
+            },
+          });
       } else {
         this.teamService.createTeam(teamPayload).subscribe({
-          next: result => {
+          next: (result) => {
             this.dialogRef.close(result);
           },
-          error: error => {
+          error: (error) => {
             console.error('Error creating team:', error);
-          }
+          },
         });
       }
     }
