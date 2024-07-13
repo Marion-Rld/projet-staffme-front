@@ -105,7 +105,7 @@ export class UserListComponent implements OnInit {
   deleteUser(userId: string): void {
     this.userService.deleteUser(userId).subscribe(() => {
       console.log('User deleted');
-      this.loadUsers(); // Refresh the table after deleting a user
+      this.loadUsers(); 
     });
   }
 

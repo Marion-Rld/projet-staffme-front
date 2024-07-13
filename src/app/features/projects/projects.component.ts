@@ -8,7 +8,7 @@ import { AddButtonComponent } from '../../components/shared/add-button/add-butto
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
 import { MatDialog } from '@angular/material/dialog';
-import { ProjectDialogComponent } from '../../components/projects/project-dialog/project-dialog.component'; // Update to ProjectDialogComponent
+import { ProjectDialogComponent } from '../../components/projects/project-dialog/project-dialog.component'; 
 import { Team } from '../../models/team.model';
 import { TeamService } from '../../services/team.service';
 
@@ -90,10 +90,10 @@ export class ProjectsComponent implements OnInit {
   }
 
   openCreateProjectDialog(): void {
-    const dialogRef = this.dialog.open(ProjectDialogComponent, { // Update to ProjectDialogComponent
+    const dialogRef = this.dialog.open(ProjectDialogComponent, { 
       width: '800px',
       panelClass: 'custom-modal',
-      data: { project: null } // Ensures the dialog knows it's a creation
+      data: { project: null } 
     });
 
     dialogRef.afterClosed().subscribe((result) => {
