@@ -33,6 +33,7 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
   @Input() dataSource = new MatTableDataSource<any>();
   @Input() columnLabels: { [key: string]: string } = {};
   @Input() itemType: string = '';
+  @Input() pageSize: number = 10;
   @Output() rowAction = new EventEmitter<{ type: string; element: any }>();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -48,6 +49,7 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.paginator.pageSize = this.pageSize;
   }
 
   isDateColumn(column: string): boolean {

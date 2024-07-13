@@ -1,12 +1,22 @@
 <div class="teams-page">
   <div class="utilities-bar">
-    <app-search-input (searchTermChange)="applyFilter($event)"></app-search-input>
-    <app-add-button [buttonText]="'AJOUTER UNE EQUIPE'" (buttonClick)="openCreateTeamDialog()"></app-add-button>
+    <app-search-input
+      (searchTermChange)="applyFilter($event)"
+    ></app-search-input>
+    <app-add-button
+      [buttonText]="'AJOUTER UNE EQUIPE'"
+      (buttonClick)="openCreateTeamDialog()"
+    ></app-add-button>
   </div>
   <mat-card class="teams-card full-width no-padding">
     <mat-card-content class="no-padding">
-      <app-paginated-sortable-table [displayedColumns]="displayedColumns" [dataSource]="teams"
-        [columnLabels]="translatedColumns" itemType="team"></app-paginated-sortable-table>
+      <app-paginated-sortable-table
+        [displayedColumns]="displayedColumns"
+        [dataSource]="teams"
+        [pageSize]="20"
+        [columnLabels]="translatedColumns"
+        itemType="team"
+      ></app-paginated-sortable-table>
     </mat-card-content>
   </mat-card>
 </div>

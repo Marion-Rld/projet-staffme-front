@@ -5,7 +5,7 @@
         <mat-icon>cached</mat-icon>
         <span>Projets en cours</span>
         <div class="full-width-hr">
-          <hr>
+          <hr />
         </div>
       </mat-card-title>
       <mat-card-content class="no-padding">
@@ -14,6 +14,7 @@
           [dataSource]="projects"
           [columnLabels]="translatedProjectColumns"
           itemType="project"
+          [pageSize]="3"
           (rowAction)="handleProjectRowAction($event)"
         ></app-paginated-sortable-table>
       </mat-card-content>
@@ -25,7 +26,7 @@
         <mat-icon>groups</mat-icon>
         <span>Équipes</span>
         <div class="full-width-hr">
-          <hr>
+          <hr />
         </div>
       </mat-card-title>
       <mat-card-content class="no-padding">
@@ -43,7 +44,7 @@
         <mat-icon>bar_chart</mat-icon>
         <span>Statistiques</span>
         <div class="full-width-hr">
-          <hr>
+          <hr />
         </div>
       </mat-card-title>
       <mat-card-content>
