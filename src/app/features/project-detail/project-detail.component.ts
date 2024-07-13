@@ -12,7 +12,6 @@ import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BackButtonComponent } from '../../components/shared/back-button/back-button.component';
 import { DetailCardComponent } from '../../components/shared/detail-card/detail-card.component';
-import { EditProjectComponent } from '../../components/projects/edit-project/edit-project.component';
 
 @Component({
   selector: 'app-project-detail',
@@ -41,7 +40,6 @@ export class ProjectDetailComponent implements OnInit {
     teams: [],
   };
   teamUsers: User[] = [];
-  editProjectComponent = EditProjectComponent;
 
   constructor(
     private route: ActivatedRoute,
