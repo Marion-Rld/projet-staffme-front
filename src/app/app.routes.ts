@@ -13,10 +13,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { TeamsComponent } from './features/teams/teams.component';
 import { TeamDetailComponent } from './features/team-detail/team-detail.component';
 import { UserProfileComponent } from './features/user-profile/user-profile.component';
-
+import { CollaboratorsComponent } from './features/collaborators/collaborators.component';
 /*
 import { TeamsComponent } from './features/teams/teams.component';
-import { CollaboratorsComponent } from './features/collaborators/collaborators.component';
+
 import { LogoutComponent } from './features/logout/logout.component';*/
 
 export const routes: Routes = [
@@ -46,9 +46,17 @@ export const routes: Routes = [
     component: UserProfileComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'user-list', component: UserListComponent, canActivate: [SuperAdminGuard] },
+  {
+    path: 'user-list',
+    component: UserListComponent,
+    canActivate: [SuperAdminGuard],
+  },
+  {
+    path: 'collaborators',
+    component: CollaboratorsComponent,
+    canActivate: [AuthGuard],
+  },
   { path: '**', component: PageNotFoundComponent }, // Page non-trouvée
   /*
-  { path: 'collaborators', component: CollaboratorsComponent, canActivate: [AuthGuard] },
   { path: 'logout', component: LogoutComponent, canActivate: [AuthGuard] }*/
 ];

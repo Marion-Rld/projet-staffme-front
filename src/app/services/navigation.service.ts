@@ -24,6 +24,9 @@ export class NavigationService {
       case 'user':
         this.router.navigate(['/users', id]);
         break;
+      case 'profile':
+        this.router.navigate(['/profile', id]);
+        break;
       default:
         console.error('Unknown item type', itemType);
     }

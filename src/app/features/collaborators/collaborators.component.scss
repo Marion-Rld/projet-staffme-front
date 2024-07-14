@@ -1,0 +1,18 @@
+.container {
+    width: 95%;
+    margin: 35px auto;
+  }
+  
+  .utilities-bar {
+    display: flex; 
+    justify-content: space-between;
+    margin-bottom: 10px; 
+  }
+  
+  .utilities-bar app-search-input {
+    flex: 1; 
+  }
+  
+  .utilities-bar app-add-button {
+    margin-left: 20px; 
+  }
