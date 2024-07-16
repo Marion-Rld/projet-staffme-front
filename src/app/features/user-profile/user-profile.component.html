@@ -8,6 +8,8 @@
       [phoneNumber]="userData.phoneNumber"
       [job]="userData.job"
       [postalAddress]="userData.postalAddress"
+      [editComponent]="collaboratorDialogComponent"
+      (entityUpdated)="refreshCollaborator()"
       [data]="userData"
     ></app-detail-card>
   </div>

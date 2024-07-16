@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { BackButtonComponent } from '../../components/shared/back-button/back-button.component';
 import { DetailCardComponent } from '../../components/shared/detail-card/detail-card.component';
+import { CollaboratorDialogComponent } from '../../components/collaborators/collaborator-dialog/collaborator-dialog.component';
+import { Collaborator } from '../../models/collaborator.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -14,6 +16,7 @@ import { DetailCardComponent } from '../../components/shared/detail-card/detail-
     MatIconModule,
     BackButtonComponent,
     DetailCardComponent,
+    CollaboratorDialogComponent
   ],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],
@@ -21,7 +24,18 @@ import { DetailCardComponent } from '../../components/shared/detail-card/detail-
 })
 export class UserProfileComponent implements OnInit {
   userId: string = '';
-  userData: any;
+  @Input() userData: Collaborator = {
+    _id: '',
+    lastName: '',
+    firstName: '',
+    email: '',
+    phoneNumber: '',
+    job: '',
+    gender: '',
+    postalAddress: '',
+  };
+
+  collaboratorDialogComponent = CollaboratorDialogComponent;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,7 +56,13 @@ export class UserProfileComponent implements OnInit {
   loadUserData() {
     this.userService.getUserById(this.userId).subscribe((data) => {
       this.userData = data;
-      console.log('User data:', this.userData);
+      console.log('Collaborator data:', this.userData);
     });
+  }
+
+  refreshCollaborator(): void {
+    if(this.userData?._id) {
+      this.loadUserData();
+    }
   }
 }

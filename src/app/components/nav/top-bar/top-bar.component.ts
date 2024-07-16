@@ -34,7 +34,7 @@ export class TopBarComponent {
         } else if (event.url === '/teams') {
           this.title = 'Équipes';
         } else if (event.url === '/collaborators') {
-          this.title = 'collaborateurs';
+          this.title = 'Collaborateurs';
         } else if (event.url === '/user-list') {
           this.title = 'Liste des utilisateurs';
         } else if (/^\/projects\/[^\/]+$/.test(event.url)) {
