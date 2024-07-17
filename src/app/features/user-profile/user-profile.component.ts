@@ -7,6 +7,7 @@ import { BackButtonComponent } from '../../components/shared/back-button/back-bu
 import { DetailCardComponent } from '../../components/shared/detail-card/detail-card.component';
 import { CollaboratorDialogComponent } from '../../components/collaborators/collaborator-dialog/collaborator-dialog.component';
 import { Collaborator } from '../../models/collaborator.model';
+import { UserInfosComponent } from '../user-infos/user-infos.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -16,7 +17,8 @@ import { Collaborator } from '../../models/collaborator.model';
     MatIconModule,
     BackButtonComponent,
     DetailCardComponent,
-    CollaboratorDialogComponent
+    CollaboratorDialogComponent,
+    UserInfosComponent
   ],
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.scss'],

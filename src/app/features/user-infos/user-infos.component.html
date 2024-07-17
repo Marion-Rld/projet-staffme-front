@@ -1,0 +1,26 @@
+<mat-tab-group class="mat-tab-group">
+    <mat-tab label="Projets">
+      <app-paginated-sortable-table
+        [displayedColumns]="displayedColumnsProjects"
+        [dataSource]="projects"
+        [columnLabels]="{ name: 'Nom', description: 'Description', startDate: 'Début', endDate: 'Fin' }"
+        itemType="projects"
+      ></app-paginated-sortable-table>
+    </mat-tab>
+    <mat-tab label="Équipes">
+      <app-paginated-sortable-table
+        [displayedColumns]="displayedColumnsTeams"
+        [dataSource]="teams"
+        [columnLabels]="{ name: 'Nom', role: 'Rôle' }"
+        itemType="teams"
+      ></app-paginated-sortable-table>
+    </mat-tab>
+    <mat-tab label="Compétences">
+      <app-paginated-sortable-table
+        [displayedColumns]="displayedColumnsSkills"
+        [dataSource]="skills"
+        [columnLabels]="{ name: 'Nom', level: 'Niveau' }"
+        itemType="skills"
+      ></app-paginated-sortable-table>
+    </mat-tab>
+  </mat-tab-group>  
