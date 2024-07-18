@@ -20,6 +20,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
+  hidePassword = true;
+  hideConfirmPassword = true;
+  
   registerForm = new FormGroup({
     firstName: new FormControl('', [
       Validators.required,

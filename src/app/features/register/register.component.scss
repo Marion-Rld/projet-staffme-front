@@ -1,6 +1,10 @@
 $login-background-color: #264653;
 $login-link-color: #2a9d8f;
 
+.password-icon {
+  cursor: pointer;
+}
+
 .register-page {
   display: flex;
   flex-direction: column;  

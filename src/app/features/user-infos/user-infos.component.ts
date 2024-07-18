@@ -7,6 +7,7 @@ import { UserService } from '../../services/user.service';
 import { TeamService } from '../../services/team.service';
 import { ProjectService } from '../../services/project.service';
 import { SkillService } from '../../services/skill.service';
+import { SkillLevelService } from '../../services/skill-level.service';
 import { forkJoin } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -41,13 +42,13 @@ export class UserInfosComponent implements OnInit {
 
   displayedColumnsProjects: string[] = ['name', 'description', 'startDate', 'endDate'];
   displayedColumnsTeams: string[] = ['name'];
-  displayedColumnsSkills: string[] = ['name'];
+  displayedColumnsSkills: string[] = ['name', 'level'];
 
   projects: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   teams: MatTableDataSource<any> = new MatTableDataSource<any>([]);
   skills: MatTableDataSource<any> = new MatTableDataSource<any>([]);
 
-  constructor(private userService: UserService, private teamService: TeamService, private projectService: ProjectService, private skillService: SkillService) {}
+  constructor(private userService: UserService, private teamService: TeamService, private projectService: ProjectService, private skillService: SkillService, private skillLevelService: SkillLevelService) {}
 
   ngOnInit(): void {
     this.loadUserData();
@@ -79,8 +80,10 @@ export class UserInfosComponent implements OnInit {
   
       if (this.skills.data.length > 0) {
         const skillRequests = this.skills.data.map(skill => this.skillService.getSkillById(skill.skill_id));
-        forkJoin(skillRequests).subscribe((skills: any[]) => {
-          this.skills.data = skills;
+        const skillLevelRequests = this.skills.data.map(skill => this.skillLevelService.getSkillLevelById(skill.level_id)); // Fetch the skill level names
+
+        forkJoin([forkJoin(skillRequests), forkJoin(skillLevelRequests)]).subscribe(([skills, skillLevels]) => {
+          this.skills.data = skills.map((skill, index) => ({ ...skill, level: skillLevels[index].name })); // Add the skill level name to the skill object
         });
       }
     });
