@@ -34,4 +34,5 @@
     </div>
   </div>
   <app-edit-button (buttonClick)="openEditDialog()"></app-edit-button>
+  <app-delete-button (confirmDelete)="entityDeleted.emit()" [itemType]="itemType"></app-delete-button>
 </div>

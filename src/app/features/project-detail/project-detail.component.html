@@ -9,6 +9,8 @@
     [editComponent]="projectDialogComponent"
     [data]="project"
     (entityUpdated)="refreshProject()"
+    (entityDeleted)="deleteProject()"
+    [itemType]="'projet'"
   ></app-detail-card>
   <div class="card-wrapper">
     <div *ngFor="let user of teamUsers">

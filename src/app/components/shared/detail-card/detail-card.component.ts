@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, Input, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { EditButtonComponent } from '../../shared/edit-button/edit-button.component';
+import { DeleteButtonComponent } from '../delete-button/delete-button.component';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-detail-card',
   standalone: true,
-  imports: [CommonModule, MatIconModule, EditButtonComponent, MatDialogModule],
+  imports: [CommonModule, MatIconModule, EditButtonComponent, MatDialogModule, DeleteButtonComponent],
   templateUrl: './detail-card.component.html',
   styleUrls: ['./detail-card.component.scss'],
 })
@@ -26,7 +27,9 @@ export class DetailCardComponent {
   @Input() collaboratorsCount?: string;
   @Input() description?: string;
   @Input() data!: any;
+  @Input() itemType: string = 'élément';
   @Output() entityUpdated = new EventEmitter<void>();
+  @Output() entityDeleted = new EventEmitter<void>();
 
   constructor(public dialog: MatDialog) {}
 

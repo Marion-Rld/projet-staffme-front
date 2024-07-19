@@ -99,4 +99,12 @@ export class ProjectDetailComponent implements OnInit {
       this.loadProject(this.project._id);
     }
   }
+
+  deleteProject(): void {
+    if (this.project._id) {
+      this.projectService.deleteProject(this.project._id).subscribe(() => {
+        this.goBack();
+      });
+    }
+  }
 }

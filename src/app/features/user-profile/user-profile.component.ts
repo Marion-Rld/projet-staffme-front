@@ -67,4 +67,12 @@ export class UserProfileComponent implements OnInit {
       this.loadUserData();
     }
   }
+
+  deleteCollaborator(): void {
+    if(this.userData?._id) {
+      this.userService.deleteUser(this.userData._id).subscribe(() => {
+        this.goBack();
+      });
+    }
+  }
 }

@@ -30,4 +30,8 @@ export class ProjectService {
       projectdata
     );
   }
+
+  deleteProject(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/project/${id}`);
+  }
 }

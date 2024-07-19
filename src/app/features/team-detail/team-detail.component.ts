@@ -83,4 +83,12 @@ export class TeamDetailComponent implements OnInit {
       this.loadTeam(this.team._id);
     }
   }
+
+  deleteTeam(): void {
+    if (this.team._id) {
+      this.teamService.deleteTeam(this.team._id).subscribe(() => {
+        this.goBack();
+      });
+    }
+  }
 }

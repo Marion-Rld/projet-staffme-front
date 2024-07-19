@@ -10,6 +10,7 @@ import { AddButtonComponent } from '../../components/shared/add-button/add-butto
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DeleteConfirmationDialog } from '../../components/shared/delete-button/delete-button.component';
 
 @Component({
   selector: 'app-user-list',
@@ -103,9 +104,18 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(userId: string): void {
-    this.userService.deleteUser(userId).subscribe(() => {
-      console.log('User deleted');
-      this.loadUsers(); 
+    const dialogRef = this.dialog.open(DeleteConfirmationDialog, {
+      width: '300px',
+      data: { message: 'Etes-vous sûr de vouloir supprimer cet utilisateur ?' }
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.userService.deleteUser(userId).subscribe(() => {
+          console.log('User deleted');
+          this.loadUsers();
+        });
+      }
     });
   }
 

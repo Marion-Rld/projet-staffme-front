@@ -10,6 +10,8 @@
       [postalAddress]="userData.postalAddress"
       [editComponent]="collaboratorDialogComponent"
       (entityUpdated)="refreshCollaborator()"
+      (entityDeleted)="deleteCollaborator()"
+      [itemType]="'collaborateur'"
       [data]="userData"
     ></app-detail-card>
     <app-user-infos [userId]="userId"></app-user-infos>
