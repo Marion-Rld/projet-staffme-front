@@ -1,0 +1,21 @@
+@use '../../../../styles.scss' as colors;
+
+.delete-button{
+    background-color: colors.$warn-color;
+    color: colors.$white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    width: 36px!important;
+    height: 36px!important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .delete-button mat-icon {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

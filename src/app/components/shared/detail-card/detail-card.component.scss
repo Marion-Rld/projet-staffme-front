@@ -62,6 +62,14 @@
   gap: 40px;
 }
 
+.button-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
 // .detail-card-contact-info > div {
 //   flex: 1;
 //   margin-right: 20px;
