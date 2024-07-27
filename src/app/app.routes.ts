@@ -14,6 +14,7 @@ import { TeamsComponent } from './features/teams/teams.component';
 import { TeamDetailComponent } from './features/team-detail/team-detail.component';
 import { UserProfileComponent } from './features/user-profile/user-profile.component';
 import { CollaboratorsComponent } from './features/collaborators/collaborators.component';
+import { ResetPasswordComponent } from './features/reset-password/reset-password.component';
 /*
 import { TeamsComponent } from './features/teams/teams.component';
 
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'reset-password/:token', component: ResetPasswordComponent },
   { path: '', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
   {
