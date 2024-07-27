@@ -1,4 +1,11 @@
-import { Component, ElementRef, HostListener, Renderer2, AfterViewChecked } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Renderer2,
+  AfterViewChecked,
+  OnInit,
+} from '@angular/core';
 import {
   Router,
   RouterModule,
@@ -37,14 +44,19 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatIconModule,
     MatTableModule,
     MatDialogModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
 })
-export class AppComponent implements AfterViewChecked {
+export class AppComponent implements OnInit, AfterViewChecked {
   title = 'projet-staffme-front';
 
-  showMainNav = false;
-  hideNavRoutes = ['/login', '/register', '/forgot-password'];
+  showMainNav = true;
+  hideNavRoutes = [
+    '/login',
+    '/register',
+    '/forgot-password',
+    '/reset-password',
+  ];
 
   constructor(
     private router: Router,
@@ -61,10 +73,7 @@ export class AppComponent implements AfterViewChecked {
       )
       .subscribe((event: NavigationEnd) => {
         const url = event.urlAfterRedirects;
-        const isHideRoute = this.hideNavRoutes.includes(url);
-        const isKnownRoute = this.isRouteKnown(url);
-
-        this.showMainNav = !isHideRoute && isKnownRoute;
+        this.showMainNav = !this.shouldHideNav(url);
         this.adjustContentMargin();
       });
 
@@ -95,12 +104,17 @@ export class AppComponent implements AfterViewChecked {
     }
   }
 
-  private isRouteKnown(url: string): boolean {
-    const config = this.router.config;
-    return config.some(route => {
-      const path = route.path === '' ? '/' : `/${route.path}`;
-      const regex = new RegExp(`^${path.replace(/:[^\s/]+/, '[^/]+')}$`);
-      return regex.test(url);
-    });
+  private shouldHideNav(url: string): boolean {
+    // Check for exact matches
+    if (this.hideNavRoutes.some((route) => url.startsWith(route))) {
+      return true;
+    }
+
+    // Check for dynamic routes
+    const dynamicRoutePatterns = this.hideNavRoutes
+      .filter((route) => route.includes(':'))
+      .map((route) => new RegExp(`^${route.replace(/:[^\s/]+/, '[^/]+')}$`));
+
+    return dynamicRoutePatterns.some((pattern) => pattern.test(url));
   }
 }
