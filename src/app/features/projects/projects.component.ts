@@ -98,7 +98,6 @@ export class ProjectsComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('Project created:', result);
         this.addProjectToTable(result);
       }
     });

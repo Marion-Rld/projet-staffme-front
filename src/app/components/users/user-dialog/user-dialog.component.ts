@@ -84,7 +84,6 @@ export class UserDialogComponent {
 
       if (this.isEditMode) {
         const differences = this.findDifferences(this.data.user, filteredValues);
-        console.log(differences);
         if (Object.keys(differences).length > 0) {
           this.userService.updateUser(this.data.user._id, differences).subscribe({
             next: result => {

@@ -95,7 +95,6 @@ export class ProjectDialogComponent implements OnInit {
         endDate: endDate.toISOString(),
       };
 
-      console.log('Project payload:', projectPayload);
 
       if (this.isEditMode && this.data.entity && this.data.entity._id) {
         this.projectService

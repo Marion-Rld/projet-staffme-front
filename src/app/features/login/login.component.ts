@@ -30,7 +30,6 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          console.log('User logged in successfully', response);
           this.authService.setToken(response.token);
           window.location.href = '/';
         },

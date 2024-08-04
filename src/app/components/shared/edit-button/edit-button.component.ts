@@ -14,7 +14,6 @@ export class EditButtonComponent {
   @Output() buttonClick = new EventEmitter<void>();
 
   onClick() {
-    console.log('Edit button clicked');
     this.buttonClick.emit();
   }
 }

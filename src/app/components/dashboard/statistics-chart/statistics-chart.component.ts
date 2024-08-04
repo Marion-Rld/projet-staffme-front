@@ -21,7 +21,6 @@ export class StatisticsChartComponent implements AfterViewInit {
 
   loadChart() {
     this.projectService.getProjects().subscribe((projects: Project[]) => {
-      console.log(projects);
 
       const completed = projects.filter(
         (project) => project.status === 'completed'

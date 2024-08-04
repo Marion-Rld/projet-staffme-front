@@ -39,7 +39,6 @@ export class ProjectCardComponent {
   }
 
   openEditProjectDialog(): void {
-    console.log('Opening edit project dialog');
     const dialogRef = this.dialog.open(ProjectDialogComponent, {
       width: '800px',
       panelClass: 'custom-modal',
@@ -48,7 +47,6 @@ export class ProjectCardComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('Project updated:', result);
         this.addUpdatedProjectToTable(result);
       }
     });

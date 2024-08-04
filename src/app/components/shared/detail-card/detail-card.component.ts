@@ -42,7 +42,6 @@ export class DetailCardComponent {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('Entity updated:', result);
         this.entityUpdated.emit(); 
       }
     });

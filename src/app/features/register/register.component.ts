@@ -50,7 +50,6 @@ export class RegisterComponent {
     if (this.registerForm.valid && this.passwordsMatch()) {
       this.authService.register(this.registerForm.value).subscribe({
         next: (response) => {
-          console.log('User added successfully', response);
           this.router.navigate(['/login']);
         },
         error: (error) => {

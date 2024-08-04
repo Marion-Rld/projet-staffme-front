@@ -40,7 +40,6 @@ export class ForgotPasswordComponent {
             'Un email de réinitialisation a été envoyé'
           );
           this.router.navigate(['/login']);
-          console.log('Password reset email sent successfully', response);
         },
         error: (error) => {
           this.notificationService.showError(

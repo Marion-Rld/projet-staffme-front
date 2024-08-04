@@ -58,7 +58,6 @@ export class UserProfileComponent implements OnInit {
   loadUserData() {
     this.userService.getUserById(this.userId).subscribe((data) => {
       this.userData = data;
-      console.log('Collaborator data:', this.userData);
     });
   }
 

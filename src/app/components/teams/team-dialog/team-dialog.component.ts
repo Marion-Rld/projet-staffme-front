@@ -83,7 +83,6 @@ export class TeamDialogComponent implements OnInit {
 
     this.skillService.getSkills().subscribe((skills: Skill[]) => {
       this.skills = skills;
-      console.log('Skills loaded:', this.skills);
     });
 
     if (this.isEditMode && this.data.entity) {
@@ -100,7 +99,6 @@ export class TeamDialogComponent implements OnInit {
   }
 
   filterUsersBySkills(skillIds: string[]) {
-    console.log('Filtering users by skills:', skillIds);
     if (skillIds.length === 0) {
       this.filteredUsers = this.users;
     } else {
@@ -108,7 +106,6 @@ export class TeamDialogComponent implements OnInit {
         user.skills?.some((userSkill) => skillIds.includes(userSkill.skill_id))
       );
     }
-    console.log('Filtered users:', this.filteredUsers);
   }
 
   onSave(): void {
@@ -120,7 +117,6 @@ export class TeamDialogComponent implements OnInit {
         projects: formValues.projects,
       };
 
-      console.log('Team payload:', teamPayload);
 
       if (this.isEditMode && this.data.entity._id) {
         this.teamService

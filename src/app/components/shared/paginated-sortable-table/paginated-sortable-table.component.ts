@@ -73,7 +73,6 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
   }
 
   onRowClick(element: any): void {
-    console.log(this.itemType);
     this.navigationService.navigateTo(element, this.itemType);
   }
 }

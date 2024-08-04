@@ -82,7 +82,6 @@ export class UserListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('User created:', result);
         this.loadUsers();
       }
     });
@@ -97,7 +96,6 @@ export class UserListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        console.log('User updated:', result);
         this.loadUsers();
       }
     });
@@ -112,7 +110,6 @@ export class UserListComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.userService.deleteUser(userId).subscribe(() => {
-          console.log('User deleted');
           this.loadUsers();
         });
       }
