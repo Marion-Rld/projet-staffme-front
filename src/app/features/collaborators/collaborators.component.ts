@@ -5,9 +5,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { PaginatedSortableTableComponent } from '../../components/shared/paginated-sortable-table/paginated-sortable-table.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { User } from '../../models/user.model';
+import { User, UserSkill } from '../../models/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from '../../services/user.service';
+import { SkillService } from '../../services/skill.service';
+import { Skill } from '../../models/skill.model';
 
 @Component({
   selector: 'app-collaborators',
@@ -27,7 +29,7 @@ export class CollaboratorsComponent implements OnInit {
     'lastName',
     'firstName',
     'email',
-    'postalAddress',
+    'skillsString',
     'job',
   ];
 
@@ -35,22 +37,47 @@ export class CollaboratorsComponent implements OnInit {
     lastName: 'Nom',
     firstName: 'Prénom',
     email: 'Email',
-    postalAddress: 'Adresse',
+    skillsString: 'Compétences',
     job: 'Poste',
   };
+  dataSource = new MatTableDataSource<User & { skillsString?: string }>([]);
+  collaborators: (User & { skillsString?: string })[] = [];
 
-  dataSource = new MatTableDataSource<User>([]);
-  collaborators: User[] = [];
-
-  constructor(private userService: UserService, public dialog: MatDialog) {}
+  constructor(
+    private userService: UserService,
+    private skillService: SkillService,
+    public dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.loadCollaborators();
   }
 
   loadCollaborators(): void {
-    this.userService.getUsers().subscribe((collaborators) => {
-      this.dataSource.data = collaborators;
+    this.userService.getUsers().subscribe((collaborators: User[]) => {
+      const skillIds = new Set<string>();
+      collaborators.forEach((user: User) => {
+        user.skills?.forEach((skill: UserSkill) =>
+          skillIds.add(skill.skill_id)
+        );
+      });
+
+      this.skillService
+        .getSkillsByIds(Array.from(skillIds))
+        .subscribe((skills: Skill[]) => {
+          const skillMap = new Map<string, string>(
+            skills.map((skill: Skill) => [skill._id, skill.name])
+          );
+          const collaboratorsWithSkillsString = collaborators.map(
+            (user: User) => {
+              const skillNames = user.skills
+                ?.map((skill: UserSkill) => skillMap.get(skill.skill_id) || '')
+                .join(', ');
+              return { ...user, skillsString: skillNames || '' };
+            }
+          );
+          this.dataSource.data = collaboratorsWithSkillsString;
+        });
     });
   }
 
