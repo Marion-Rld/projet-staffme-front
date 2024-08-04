@@ -4,9 +4,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TeamService } from '../../../services/team.service';
 import { ProjectService } from '../../../services/project.service';
 import { UserService } from '../../../services/user.service';
+import { SkillService } from '../../../services/skill.service';
 import { Team } from '../../../models/team.model';
 import { Project } from '../../../models/project.model';
-import { User } from '../../../models/user.model';
+import { User, UserSkill } from '../../../models/user.model';
+import { Skill } from '../../../models/skill.model';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,6 +16,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+
+interface TeamPayload {
+  name: string;
+  users: string[];
+  projects: string[];
+}
 
 @Component({
   selector: 'app-team-dialog',
@@ -35,12 +43,15 @@ export class TeamDialogComponent implements OnInit {
   isEditMode: boolean;
   projects: Project[] = [];
   users: User[] = [];
+  filteredUsers: User[] = [];
+  skills: Skill[] = [];
 
   constructor(
     private fb: FormBuilder,
     private teamService: TeamService,
     private projectService: ProjectService,
     private userService: UserService,
+    private skillService: SkillService,
     public dialogRef: MatDialogRef<TeamDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { entity: Team }
   ) {
@@ -50,8 +61,13 @@ export class TeamDialogComponent implements OnInit {
         data.entity?.name || '',
         [Validators.required, Validators.minLength(2)],
       ],
+      requiredSkills: [[]],
       users: [data.entity?.users?.map((user) => user._id) || []],
       projects: [data.entity?.projects?.map((project) => project._id) || []],
+    });
+
+    this.teamForm.get('requiredSkills')?.valueChanges.subscribe((skills) => {
+      this.filterUsersBySkills(skills);
     });
   }
 
@@ -62,6 +78,12 @@ export class TeamDialogComponent implements OnInit {
 
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
+      this.filteredUsers = users;
+    });
+
+    this.skillService.getSkills().subscribe((skills: Skill[]) => {
+      this.skills = skills;
+      console.log('Skills loaded:', this.skills);
     });
 
     if (this.isEditMode && this.data.entity) {
@@ -77,11 +99,23 @@ export class TeamDialogComponent implements OnInit {
     }
   }
 
+  filterUsersBySkills(skillIds: string[]) {
+    console.log('Filtering users by skills:', skillIds);
+    if (skillIds.length === 0) {
+      this.filteredUsers = this.users;
+    } else {
+      this.filteredUsers = this.users.filter((user) =>
+        user.skills?.some((userSkill) => skillIds.includes(userSkill.skill_id))
+      );
+    }
+    console.log('Filtered users:', this.filteredUsers);
+  }
+
   onSave(): void {
     if (this.teamForm.valid) {
       const formValues = this.teamForm.value;
-      const teamPayload = {
-        ...formValues,
+      const teamPayload: TeamPayload = {
+        name: formValues.name,
         users: formValues.users,
         projects: formValues.projects,
       };
@@ -90,7 +124,7 @@ export class TeamDialogComponent implements OnInit {
 
       if (this.isEditMode && this.data.entity._id) {
         this.teamService
-          .updateTeam(this.data.entity._id, teamPayload)
+          .updateTeam(this.data.entity._id, teamPayload as any)
           .subscribe({
             next: (result) => {
               this.dialogRef.close(result);
@@ -100,7 +134,7 @@ export class TeamDialogComponent implements OnInit {
             },
           });
       } else {
-        this.teamService.createTeam(teamPayload).subscribe({
+        this.teamService.createTeam(teamPayload as any).subscribe({
           next: (result) => {
             this.dialogRef.close(result);
           },

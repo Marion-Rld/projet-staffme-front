@@ -16,20 +16,33 @@
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Compétences requises</mat-label>
+        <mat-select formControlName="requiredSkills" multiple>
+          <mat-option *ngFor="let skill of skills" [value]="skill._id">
+            {{ skill.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
         <mat-label>Utilisateurs associés</mat-label>
         <mat-select formControlName="users" multiple>
-          <mat-option *ngFor="let user of users" [value]="user._id">
-            {{ user.lastName }} {{ user.firstName }}
-          </mat-option>
+          <ng-container *ngIf="filteredUsers">
+            <mat-option *ngFor="let user of filteredUsers" [value]="user._id">
+              {{ user.lastName }} {{ user.firstName }}
+            </mat-option>
+          </ng-container>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Projets associés</mat-label>
         <mat-select formControlName="projects" multiple>
-          <mat-option *ngFor="let project of projects" [value]="project._id">
-            {{ project.name }}
-          </mat-option>
+          <ng-container *ngIf="projects">
+            <mat-option *ngFor="let project of projects" [value]="project._id">
+              {{ project.name }}
+            </mat-option>
+          </ng-container>
         </mat-select>
       </mat-form-field>
     </form>
