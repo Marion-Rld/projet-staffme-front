@@ -7,7 +7,6 @@ import { TeamService } from '../../services/team.service';
 import { UserService } from '../../services/user.service';
 import { Team } from '../../models/team.model';
 import { User } from '../../models/user.model';
-import { Project } from '../../models/project.model';
 import { CollaboratorCardComponent } from '../../components/projects/collaborator-card/collaborator-card.component';
 import { BackButtonComponent } from '../../components/shared/back-button/back-button.component';
 import { DetailCardComponent } from '../../components/shared/detail-card/detail-card.component';

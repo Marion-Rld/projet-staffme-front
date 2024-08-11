@@ -10,7 +10,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   standalone: true,
   imports: [CommonModule, MatIconModule, MatButtonModule],
   templateUrl: './delete-button.component.html',
-  styleUrls: ['./delete-button.component.scss']
+  styleUrls: ['./delete-button.component.scss'],
 })
 export class DeleteButtonComponent {
   @Input() itemType: string = 'élément';
@@ -19,12 +19,12 @@ export class DeleteButtonComponent {
   constructor(private dialog: MatDialog) {}
 
   openConfirmDialog(): void {
-    const dialogRef = this.dialog.open(DeleteConfirmationDialog, {
+    const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
       width: '250px',
-      data: { itemType: this.itemType }
+      data: { itemType: this.itemType },
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result === true) {
         this.confirmDelete.emit();
       }
@@ -33,22 +33,24 @@ export class DeleteButtonComponent {
 }
 
 @Component({
-  selector: 'delete-confirmation-dialog',
+  selector: 'app-delete-confirmation-dialog',
   template: `
     <h1 mat-dialog-title>Confirmer la suppression</h1>
     <div mat-dialog-content>
-      <p>Êtes-vous sûr de vouloir supprimer cet {{data.itemType}} ?</p>
+      <p>Êtes-vous sûr de vouloir supprimer cet {{ data.itemType }} ?</p>
     </div>
     <div mat-dialog-actions>
       <button mat-button (click)="onCancel()">Annuler</button>
-      <button mat-button (click)="onConfirm()" cdkFocusInitial>Confirmer</button>
+      <button mat-button (click)="onConfirm()" cdkFocusInitial>
+        Confirmer
+      </button>
     </div>
   `,
 })
-export class DeleteConfirmationDialog {
+export class DeleteConfirmationDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { itemType: string },
-    private dialogRef: MatDialogRef<DeleteConfirmationDialog>
+    private dialogRef: MatDialogRef<DeleteConfirmationDialogComponent>
   ) {}
 
   onCancel(): void {

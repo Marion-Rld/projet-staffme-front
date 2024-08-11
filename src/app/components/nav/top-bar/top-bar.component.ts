@@ -5,7 +5,7 @@ import {
   NavigationEnd,
   Event as RouterEvent,
 } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-top-bar',
@@ -37,13 +37,11 @@ export class TopBarComponent {
           this.title = 'Collaborateurs';
         } else if (event.url === '/user-list') {
           this.title = 'Liste des utilisateurs';
-        } else if (/^\/projects\/[^\/]+$/.test(event.url)) {
+        } else if (/^\/projects\/[^/]+$/.test(event.url)) {
           this.title = 'Projet';
-        } else if (/^\/profile\/[^\/]+$/.test(event.url)) {
+        } else if (/^\/profile\/[^/]+$/.test(event.url)) {
           this.title = 'Profil';
         }
       });
   }
-
-  ngOnInit(): void {}
 }

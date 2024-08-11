@@ -60,7 +60,7 @@ export class ResetPasswordComponent implements OnInit {
     if (this.resetForm.valid) {
       const newPassword = this.resetForm.get('password')?.value || '';
       this.authService.resetPassword(this.token, newPassword).subscribe({
-        next: (response) => {
+        next: () => {
           this.router.navigate(['/login']);
           this.notificationService.showSuccess(
             "Mot de passe a été réinitialisé avec succès. Veuillez vous connecter."

@@ -35,7 +35,7 @@ export class ForgotPasswordComponent {
       const email: string = this.forgotPasswordForm.get('email')!.value!;
 
       this.authService.forgotPassword(email).subscribe({
-        next: (response) => {
+        next: () => {
           this.notificationService.showSuccess(
             'Un email de réinitialisation a été envoyé'
           );

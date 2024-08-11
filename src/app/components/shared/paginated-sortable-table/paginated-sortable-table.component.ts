@@ -44,6 +44,7 @@ export class PaginatedSortableTableComponent implements OnInit, AfterViewInit {
     private navigationService: NavigationService
   ) {}
 
+  // eslint-disable-next-line @angular-eslint/no-empty-lifecycle-method
   ngOnInit() {}
 
   ngAfterViewInit() {

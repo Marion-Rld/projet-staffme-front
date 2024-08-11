@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProjectService } from '../../../services/project.service';
@@ -94,7 +94,6 @@ export class ProjectDialogComponent implements OnInit {
         startDate: startDate.toISOString(),
         endDate: endDate.toISOString(),
       };
-
 
       if (this.isEditMode && this.data.entity && this.data.entity._id) {
         this.projectService

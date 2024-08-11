@@ -70,6 +70,7 @@ export class ProjectDetailComponent implements OnInit {
     });
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   loadTeamUsers(team: Team): void {
     const usersIds: string[] = [];
 

@@ -86,7 +86,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
   }
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize() {
     this.adjustContentMargin();
   }
 

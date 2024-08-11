@@ -77,6 +77,7 @@ export class AuthService {
   }
 
   register(userData: any): Observable<any> {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { confirmPassword, ...userPayload } = userData;
     return this.http.post(`${this.apiUrl}/auth-api/signup`, userPayload);
   }

@@ -5,7 +5,6 @@ import { ForgotPasswordComponent } from './features/forgot-password/forgot-passw
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { UserListComponent } from './features/user-list/user-list.component';
 import { AuthGuard } from '../../src/app/guard/auth.guard';
-import { AdminGuard } from '../../src/app/guard/admin.guard';
 import { SuperAdminGuard } from './guard/superadmin.guard';
 import { ProjectsComponent } from './features/projects/projects.component';
 import { ProjectDetailComponent } from './features/project-detail/project-detail.component';

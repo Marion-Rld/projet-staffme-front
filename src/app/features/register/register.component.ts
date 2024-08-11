@@ -49,7 +49,7 @@ export class RegisterComponent {
   onSubmit() {
     if (this.registerForm.valid && this.passwordsMatch()) {
       this.authService.register(this.registerForm.value).subscribe({
-        next: (response) => {
+        next: () => {
           this.router.navigate(['/login']);
         },
         error: (error) => {

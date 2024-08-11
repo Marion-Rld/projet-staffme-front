@@ -7,7 +7,7 @@ import { UserService } from '../../../services/user.service';
 import { SkillService } from '../../../services/skill.service';
 import { Team } from '../../../models/team.model';
 import { Project } from '../../../models/project.model';
-import { User, UserSkill } from '../../../models/user.model';
+import { User } from '../../../models/user.model';
 import { Skill } from '../../../models/skill.model';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -116,7 +116,6 @@ export class TeamDialogComponent implements OnInit {
         users: formValues.users,
         projects: formValues.projects,
       };
-
 
       if (this.isEditMode && this.data.entity._id) {
         this.teamService
