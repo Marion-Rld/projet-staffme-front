@@ -1,6 +1,6 @@
 <div class="navbar">
   <div class="navbar-left">
-    <img src="assets/images/logos/staffme-logo.png" alt="Logo" class="logo" />
+    <img src="assets/images/logos/staffme-logo.png" alt="Logo" class="logo" loading="lazy"/>
   </div>
   <div class="navbar-right">
     <button class="menu-button" (click)="toggleNav()">
@@ -8,11 +8,13 @@
         *ngIf="!showMobileMenu"
         src="assets/images/icons/main-menu-icon.svg"
         alt="Menu"
+        loading="lazy"
       />
       <img
         *ngIf="showMobileMenu"
         src="assets/images/icons/main-close-icon.svg"
         alt="Fermer"
+        loading="lazy"
       />
     </button>
   </div>
@@ -37,7 +39,7 @@
         >Liste des utilisateurs</a
       >
     </li>
-    <li class="item-logout"><a (click)="logout()">Déconnexion</a></li>
+    <li class="item-logout"><a (click)="logout()" (keypress)="logout()" role="button" tabindex="0">Déconnexion</a></li>
   </ul>
 </div>
 
@@ -49,6 +51,7 @@
           src="assets/images/logos/staffme-logo.png"
           alt="Logo"
           class="logo"
+          loading="lazy"
         />
       </div>
     </a>
