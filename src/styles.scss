@@ -44,7 +44,7 @@ $custom-brand-accent: (
   600: #259085,
   700: #1F7A7A,
   800: #1A6F70,
-  900: #14605F,
+  900: #0b4948,
   contrast: (50: $black,
     100: $black,
     200: $black,
@@ -119,7 +119,7 @@ $projet-staffme-front-theme: mat.define-light-theme((color: (primary: $custom-pr
       typography: mat.define-typography-config()));
 
 $primary-color: mat.get-color-from-palette($custom-primary, 500);
-$accent-color: mat.get-color-from-palette($custom-accent, 500);
+$accent-color: mat.get-color-from-palette($custom-accent, 900);
 $warn-color: mat.get-color-from-palette($custom-warn, 500);
 $secondary-color: mat.get-color-from-palette($custom-secondary, 500);
 $warn-contrast-color: mat.get-color-from-palette($custom-warn, contrast);
