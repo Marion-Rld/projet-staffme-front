@@ -3,6 +3,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MainNavComponent } from './main-nav.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 describe('MainNavComponent', () => {
   let component: MainNavComponent;
@@ -10,7 +11,11 @@ describe('MainNavComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule, HttpClientModule],
+      imports: [
+        NoopAnimationsModule,
+        HttpClientModule,
+        RouterModule.forRoot([]),
+      ],
     }).compileComponents();
   }));
 

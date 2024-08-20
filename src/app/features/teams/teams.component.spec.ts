@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TeamsComponent } from './teams.component';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TeamsComponent', () => {
   let component: TeamsComponent;
@@ -9,7 +10,7 @@ describe('TeamsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TeamsComponent, HttpClientModule],
+      imports: [TeamsComponent, HttpClientModule, BrowserAnimationsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TeamsComponent);

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PaginatedSortableTableComponent } from './paginated-sortable-table.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('PaginatedSortableTableComponent', () => {
   let component: PaginatedSortableTableComponent;
@@ -8,7 +9,7 @@ describe('PaginatedSortableTableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaginatedSortableTableComponent]
+      imports: [PaginatedSortableTableComponent, BrowserAnimationsModule]
     })
     .compileComponents();
     
