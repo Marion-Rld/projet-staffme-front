@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserDialogComponent } from './user-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('UserDialogComponent', () => {
   let component: UserDialogComponent;
@@ -8,10 +9,9 @@ describe('UserDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserDialogComponent]
-    })
-    .compileComponents();
-    
+      imports: [UserDialogComponent, HttpClientModule],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(UserDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

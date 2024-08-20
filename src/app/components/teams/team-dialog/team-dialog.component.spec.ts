@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TeamDialogComponent } from './team-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('TeamDialogComponent', () => {
   let component: TeamDialogComponent;
@@ -8,10 +9,9 @@ describe('TeamDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TeamDialogComponent]
-    })
-    .compileComponents();
-    
+      imports: [TeamDialogComponent, HttpClientModule],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(TeamDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

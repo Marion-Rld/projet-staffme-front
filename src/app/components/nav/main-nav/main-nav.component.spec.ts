@@ -2,6 +2,7 @@ import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MainNavComponent } from './main-nav.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('MainNavComponent', () => {
   let component: MainNavComponent;
@@ -9,7 +10,7 @@ describe('MainNavComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [NoopAnimationsModule]
+      imports: [NoopAnimationsModule, HttpClientModule],
     }).compileComponents();
   }));
 

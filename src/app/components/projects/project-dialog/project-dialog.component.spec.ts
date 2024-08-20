@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProjectDialogComponent } from './project-dialog.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ProjectDialogComponent', () => {
   let component: ProjectDialogComponent;
@@ -8,7 +9,7 @@ describe('ProjectDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProjectDialogComponent]
+      imports: [ProjectDialogComponent, HttpClientModule]
     })
     .compileComponents();
     
