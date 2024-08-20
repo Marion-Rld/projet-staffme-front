@@ -6,7 +6,7 @@ import { AuthService } from '../services/auth.service';
 
 describe('AuthGuard', () => {
   let authGuard: AuthGuard;
-  let authService: any; // Utilisez 'any' pour éviter les erreurs de typage sur les spies
+  let authService: any; 
   let router: Router;
 
   beforeEach(() => {
@@ -25,7 +25,6 @@ describe('AuthGuard', () => {
     authService = TestBed.inject(AuthService);
     router = TestBed.inject(Router);
 
-    // Configurez les spies avec 'and.returnValue'
     (authService.getToken as jasmine.Spy).and.returnValue('fake-token');
     (authService.validateToken as jasmine.Spy).and.returnValue(of(true));
   });
@@ -42,6 +41,7 @@ describe('AuthGuard', () => {
 
   it('should deny access and navigate to login when no token is present', (done) => {
     (authService.getToken as jasmine.Spy).and.returnValue(null);
+    (authService.validateToken as jasmine.Spy).and.returnValue(of(false));
 
     authGuard.canActivate().subscribe((result) => {
       expect(result).toBeFalse();

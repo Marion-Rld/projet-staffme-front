@@ -14,7 +14,17 @@ describe('CollaboratorCardComponent', () => {
 
     fixture = TestBed.createComponent(CollaboratorCardComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+
+    (component.user = {
+      _id: '1',
+      firstName: 'John',
+      lastName: 'Doe',
+      role: 'user',
+      email: 'john.doe@example.com',
+      password: 'password',
+      skills: [{ skill_id: 'skill1', level_id: 'beginner' }],
+    }),
+      fixture.detectChanges();
   });
 
   it('should create', () => {

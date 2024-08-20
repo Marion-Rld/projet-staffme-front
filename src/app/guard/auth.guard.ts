@@ -11,8 +11,14 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
+    const token = this.authService.getToken();
+    if (!token) {
+      this.router.navigate(['/login']);
+      return of(false);
+    }
+
     return this.authService.validateToken().pipe(
-      map(isValid => {
+      map((isValid) => {
         if (isValid) {
           return true; // Token valide, autoriser l'accès
         } else {
@@ -20,7 +26,7 @@ export class AuthGuard implements CanActivate {
           return false;
         }
       }),
-      catchError(error => {
+      catchError((error) => {
         console.error('AuthGuard error:', error);
         this.router.navigate(['/login']); // Rediriger vers la page de login en cas d'erreur
         return of(false);

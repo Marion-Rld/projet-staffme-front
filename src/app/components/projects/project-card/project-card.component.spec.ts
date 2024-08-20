@@ -8,12 +8,22 @@ describe('ProjectCardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProjectCardComponent]
-    })
-    .compileComponents();
-    
+      imports: [ProjectCardComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ProjectCardComponent);
     component = fixture.componentInstance;
+
+    component.project = {
+      name: 'Test Project',
+      description: 'Test Description',
+      status: 'Ongoing',
+      startDate: new Date(),
+      endDate: new Date(),
+      budget: 1000,
+      teams: [],
+    };
+
     fixture.detectChanges();
   });
 
