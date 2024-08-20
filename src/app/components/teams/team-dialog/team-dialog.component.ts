@@ -20,7 +20,6 @@ import { MatSelectModule } from '@angular/material/select';
 interface TeamPayload {
   name: string;
   users: string[];
-  projects: string[];
 }
 
 @Component({
@@ -41,7 +40,6 @@ interface TeamPayload {
 export class TeamDialogComponent implements OnInit {
   teamForm: FormGroup;
   isEditMode: boolean;
-  projects: Project[] = [];
   users: User[] = [];
   filteredUsers: User[] = [];
   skills: Skill[] = [];
@@ -63,7 +61,6 @@ export class TeamDialogComponent implements OnInit {
       ],
       requiredSkills: [[]],
       users: [data.entity?.users?.map((user) => user._id) || []],
-      projects: [data.entity?.projects?.map((project) => project._id) || []],
     });
 
     this.teamForm.get('requiredSkills')?.valueChanges.subscribe((skills) => {
@@ -72,9 +69,6 @@ export class TeamDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.projectService.getProjects().subscribe((projects) => {
-      this.projects = projects;
-    });
 
     this.userService.getUsers().subscribe((users) => {
       this.users = users;
@@ -87,13 +81,9 @@ export class TeamDialogComponent implements OnInit {
 
     if (this.isEditMode && this.data.entity) {
       const userIds = this.data.entity.users.map((user) => user._id);
-      const projectIds = this.data.entity.projects.map(
-        (project) => project._id
-      );
 
       this.teamForm.patchValue({
         users: userIds,
-        projects: projectIds,
       });
     }
   }
@@ -114,7 +104,6 @@ export class TeamDialogComponent implements OnInit {
       const teamPayload: TeamPayload = {
         name: formValues.name,
         users: formValues.users,
-        projects: formValues.projects,
       };
 
       if (this.isEditMode && this.data.entity._id) {

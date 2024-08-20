@@ -34,17 +34,6 @@
           </ng-container>
         </mat-select>
       </mat-form-field>
-
-      <mat-form-field appearance="fill" class="full-width">
-        <mat-label>Projets associés</mat-label>
-        <mat-select formControlName="projects" multiple>
-          <ng-container *ngIf="projects">
-            <mat-option *ngFor="let project of projects" [value]="project._id">
-              {{ project.name }}
-            </mat-option>
-          </ng-container>
-        </mat-select>
-      </mat-form-field>
     </form>
   </div>
   <div mat-dialog-actions class="dialog-actions-centered">

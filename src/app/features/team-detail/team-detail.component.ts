@@ -7,10 +7,12 @@ import { TeamService } from '../../services/team.service';
 import { UserService } from '../../services/user.service';
 import { Team } from '../../models/team.model';
 import { User } from '../../models/user.model';
+import { Project } from '../../models/project.model';
 import { CollaboratorCardComponent } from '../../components/projects/collaborator-card/collaborator-card.component';
 import { BackButtonComponent } from '../../components/shared/back-button/back-button.component';
 import { DetailCardComponent } from '../../components/shared/detail-card/detail-card.component';
 import { TeamDialogComponent } from '../../components/teams/team-dialog/team-dialog.component';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-team-detail',
@@ -32,15 +34,16 @@ export class TeamDetailComponent implements OnInit {
     _id: '',
     name: '',
     users: [],
-    projects: [],
   };
   teamUsers: User[] = [];
+  teamProjects: Project[] = [];
   teamDialogComponent = TeamDialogComponent;
 
   constructor(
     private route: ActivatedRoute,
     private teamService: TeamService,
-    private userService: UserService
+    private userService: UserService,
+    private projectService: ProjectService
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +63,7 @@ export class TeamDetailComponent implements OnInit {
     this.teamService.getTeamById(teamId).subscribe((team) => {
       this.team = team;
       this.loadTeamUsers(team);
+      this.loadTeamProjects(teamId);
     });
   }
 
@@ -70,6 +74,12 @@ export class TeamDetailComponent implements OnInit {
         this.teamUsers = users;
       });
     }
+  }
+
+  loadTeamProjects(teamId: string): void {
+    this.projectService.getProjectsByTeamId(teamId).subscribe((projects) => {
+      this.teamProjects = projects;
+    });
   }
 
   getCollaboratorsText(): string {

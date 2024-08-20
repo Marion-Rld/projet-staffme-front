@@ -10,6 +10,8 @@ import { SkillService } from '../../services/skill.service';
 import { SkillLevelService } from '../../services/skill-level.service';
 import { forkJoin } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
+import { Team } from '../../models/team.model';
+import { Project } from '../../models/project.model';
 
 @Component({
   selector: 'app-user-infos',
@@ -36,7 +38,6 @@ export class UserInfosComponent implements OnInit {
     job: '',
     gender: '',
     postalAddress: '',
-    teams: [],
     skills: []
   };
 
@@ -44,11 +45,17 @@ export class UserInfosComponent implements OnInit {
   displayedColumnsTeams: string[] = ['name'];
   displayedColumnsSkills: string[] = ['name', 'level'];
 
-  projects: MatTableDataSource<any> = new MatTableDataSource<any>([]);
-  teams: MatTableDataSource<any> = new MatTableDataSource<any>([]);
+  projects: MatTableDataSource<Project> = new MatTableDataSource<Project>([]);
+  teams: MatTableDataSource<Team> = new MatTableDataSource<Team>([]);
   skills: MatTableDataSource<any> = new MatTableDataSource<any>([]);
 
-  constructor(private userService: UserService, private teamService: TeamService, private projectService: ProjectService, private skillService: SkillService, private skillLevelService: SkillLevelService) {}
+  constructor(
+    private userService: UserService, 
+    private teamService: TeamService, 
+    private projectService: ProjectService, 
+    private skillService: SkillService, 
+    private skillLevelService: SkillLevelService
+  ) {}
 
   ngOnInit(): void {
     this.loadUserData();
@@ -57,35 +64,35 @@ export class UserInfosComponent implements OnInit {
   loadUserData(): void {
     this.userService.getUserById(this.userId).subscribe((data: User) => {
       this.userData = data;
-      this.teams.data = this.userData.teams || [];
       this.skills.data = this.userData.skills || [];
-  
-      if (this.teams.data.length > 0) {
-        const teamRequests = this.teams.data.map(team => this.teamService.getTeamById(team));
-        forkJoin(teamRequests).subscribe((teams: any[]) => {
-          this.teams.data = teams;
-  
-          const projectIds = teams.reduce((acc: any[], team) => {
-            return acc.concat(team.projects);
-          }, []);
-  
-          const uniqueProjectIds = Array.from(new Set(projectIds.map(project => project._id)));
-          const projectRequests = uniqueProjectIds.map(id => this.projectService.getProjectById(id));
-  
-          forkJoin(projectRequests).subscribe((projects: any[]) => {
-            this.projects.data = projects;
-          });
+
+      this.teamService.getTeams().subscribe((teams: Team[]) => {
+        const userTeams = teams.filter(team => 
+          team.users.some(user => user._id === this.userData._id)
+        );
+        this.teams.data = userTeams;
+
+        // Récupérer les projets pour chaque équipe de l'utilisateur
+        const projectRequests = userTeams.map(team => 
+          this.projectService.getProjectsByTeamId(team._id)
+        );
+
+        // Utiliser forkJoin pour attendre que toutes les requêtes soient terminées
+        forkJoin(projectRequests).subscribe((projectsByTeam: Project[][]) => {
+          const allProjects = projectsByTeam.flat();  // Aplatir les tableaux de projets
+          this.projects.data = allProjects;
         });
-      }
-  
+      });
+
+      // Charger les compétences de l'utilisateur
       if (this.skills.data.length > 0) {
         const skillRequests = this.skills.data.map(skill => this.skillService.getSkillById(skill.skill_id));
-        const skillLevelRequests = this.skills.data.map(skill => this.skillLevelService.getSkillLevelById(skill.level_id)); // Fetch the skill level names
+        const skillLevelRequests = this.skills.data.map(skill => this.skillLevelService.getSkillLevelById(skill.level_id)); 
 
         forkJoin([forkJoin(skillRequests), forkJoin(skillLevelRequests)]).subscribe(([skills, skillLevels]) => {
-          this.skills.data = skills.map((skill, index) => ({ ...skill, level: skillLevels[index].name })); // Add the skill level name to the skill object
+          this.skills.data = skills.map((skill, index) => ({ ...skill, level: skillLevels[index].name }));
         });
       }
     });
-  }  
+  }
 }

@@ -15,6 +15,5 @@ export interface User {
   postalAddress?: string;
   role: string;
   skills?: UserSkill[];
-  teams?: string[];
   documents?: string[];
 }

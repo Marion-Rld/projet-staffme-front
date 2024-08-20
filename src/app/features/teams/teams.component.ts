@@ -19,15 +19,13 @@ import { TeamDialogComponent } from '../../components/teams/team-dialog/team-dia
   styleUrls: ['./teams.component.scss'],
 })
 export class TeamsComponent implements OnInit {
-  teams: MatTableDataSource<Team & { memberCount: number, associatedProjects: string }> = new MatTableDataSource<Team & { memberCount: number, associatedProjects: string }>([]);
+  teams: MatTableDataSource<Team & { memberCount: number, associatedProjects?: string }> = new MatTableDataSource<Team & { memberCount: number, associatedProjects?: string }>([]);
   displayedColumns: string[] = ['name', 'memberCount', 'associatedProjects'];
   translatedColumns: { [key: string]: string } = {
     name: 'Nom',
     memberCount: 'Nombre de participants',
     associatedProjects: 'Projets associés'
   };
-
-  dataSource = new MatTableDataSource<Team & { memberCount: number, associatedProjects: string }>([]);
 
   constructor(
     private teamService: TeamService,
@@ -37,17 +35,28 @@ export class TeamsComponent implements OnInit {
 
   ngOnInit(): void {
     this.teamService.getTeams().subscribe(teams => {
-      const transformedTeams = teams.map(team => ({
-        ...team,
-        memberCount: team.users?.length || 0,
-        associatedProjects: this.getTeamProjectNames(team)
-      }));
-      this.teams.data = transformedTeams;
+      const transformedTeams: (Team & { memberCount: number; associatedProjects: string })[] = [];
+  
+      teams.forEach(team => {
+        this.projectService.getProjectsByTeamId(team._id).subscribe(projects => {
+          const associatedProjects = projects.map(project => project.name).join(', ');
+          const transformedTeam = {
+            ...team,
+            memberCount: team.users?.length || 0,
+            associatedProjects
+          };
+          transformedTeams.push(transformedTeam);
+  
+          if (transformedTeams.length === teams.length) {
+            this.teams.data = transformedTeams;
+          }
+        });
+      });
     });
-  }
+  }  
 
   applyFilter(filterValue: string): void {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.teams.filter = filterValue.trim().toLowerCase();
   }
 
   openCreateTeamDialog(): void {
@@ -62,15 +71,10 @@ export class TeamsComponent implements OnInit {
           const transformedTeams = teams.map(team => ({
             ...team,
             memberCount: team.users?.length || 0,
-            associatedProjects: this.getTeamProjectNames(team)
           }));
           this.teams.data = transformedTeams;
         });
       }
     });
-  }
-
-  getTeamProjectNames(team: Team): string {
-    return team.projects?.map(project => project.name).join(', ') || '';
   }
 }
