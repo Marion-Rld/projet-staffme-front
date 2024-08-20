@@ -11,6 +11,9 @@ import {
   RouterModule,
   RouterOutlet,
   NavigationEnd,
+  NavigationStart,
+  NavigationCancel,
+  NavigationError,
 } from '@angular/router';
 import { MainNavComponent } from './components/nav/main-nav/main-nav.component';
 import { MatInputModule } from '@angular/material/input';
@@ -24,6 +27,7 @@ import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { TopBarComponent } from '../app/components/nav/top-bar/top-bar.component';
 import { MatNativeDateModule } from '@angular/material/core';
+import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-root',
@@ -45,12 +49,14 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatTableModule,
     MatDialogModule,
     MatNativeDateModule,
+    LoadingSpinnerComponent
   ],
 })
 export class AppComponent implements OnInit, AfterViewChecked {
   title = 'projet-staffme-front';
-
   showMainNav = true;
+  isLoading = false;
+
   hideNavRoutes = [
     '/login',
     '/register',
@@ -58,26 +64,37 @@ export class AppComponent implements OnInit, AfterViewChecked {
     '/reset-password',
   ];
 
-  constructor(
-    private router: Router,
-    private elRef: ElementRef,
-    private renderer: Renderer2
-  ) {}
+  constructor(private router: Router, private elRef: ElementRef, private renderer: Renderer2) {}
 
   ngOnInit() {
     this.router.events
       .pipe(
         filter(
-          (event): event is NavigationEnd => event instanceof NavigationEnd
+          (event) =>
+            event instanceof NavigationStart ||
+            event instanceof NavigationEnd ||
+            event instanceof NavigationCancel ||
+            event instanceof NavigationError
         )
       )
-      .subscribe((event: NavigationEnd) => {
-        const url = event.urlAfterRedirects;
-        this.showMainNav = !this.shouldHideNav(url);
-        this.adjustContentMargin();
+      .subscribe((event) => {
+        if (event instanceof NavigationStart) {
+          this.isLoading = true;
+        } else if (
+          event instanceof NavigationEnd ||
+          event instanceof NavigationCancel ||
+          event instanceof NavigationError
+        ) {
+          this.isLoading = false;
+        }
+
+        if (event instanceof NavigationEnd) {
+          const url = event.urlAfterRedirects;
+          this.showMainNav = !this.shouldHideNav(url);
+          this.adjustContentMargin();
+        }
       });
 
-    // Initial adjustment
     this.adjustContentMargin();
   }
 
@@ -105,12 +122,10 @@ export class AppComponent implements OnInit, AfterViewChecked {
   }
 
   private shouldHideNav(url: string): boolean {
-    // Check for exact matches
     if (this.hideNavRoutes.some((route) => url.startsWith(route))) {
       return true;
     }
 
-    // Check for dynamic routes
     const dynamicRoutePatterns = this.hideNavRoutes
       .filter((route) => route.includes(':'))
       .map((route) => new RegExp(`^${route.replace(/:[^\s/]+/, '[^/]+')}$`));
