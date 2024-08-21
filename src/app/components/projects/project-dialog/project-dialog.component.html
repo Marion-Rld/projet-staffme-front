@@ -55,7 +55,11 @@
 
           <mat-form-field appearance="fill">
             <mat-label>Statut</mat-label>
-            <input matInput formControlName="status" />
+            <mat-select formControlName="status">
+              <mat-option value="completed">Terminé</mat-option>
+              <mat-option value="in progress">En cours</mat-option>
+              <mat-option value="planned">Planifié</mat-option>
+            </mat-select>
             <mat-error *ngIf="projectForm.get('status')?.hasError('required')">
               Le statut est obligatoire.
             </mat-error>
@@ -63,6 +67,17 @@
         </div>
 
         <div class="form-right">
+          <mat-form-field appearance="fill">
+            <mat-label>Budget</mat-label>
+            <input matInput formControlName="budget" type="number" />
+            <mat-error *ngIf="projectForm.get('budget')?.hasError('required')">
+              Le budget est obligatoire.
+            </mat-error>
+            <mat-error *ngIf="projectForm.get('budget')?.hasError('min')">
+              Le budget doit être supérieur ou égal à 0.
+            </mat-error>
+          </mat-form-field>
+
           <mat-form-field appearance="fill">
             <mat-label>Description</mat-label>
             <textarea matInput formControlName="description"></textarea>
@@ -89,12 +104,7 @@
     <button mat-button class="cancel-button" (click)="onCancel()">
       Annuler
     </button>
-    <button
-      mat-button
-      class="validate-button"
-      (click)="onSave()"
-      [disabled]="!projectForm.valid"
-    >
+    <button mat-button class="validate-button" (click)="onSave()">
       enregistrer
     </button>
   </div>
