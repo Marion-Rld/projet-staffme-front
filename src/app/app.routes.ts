@@ -9,11 +9,11 @@ import { SuperAdminGuard } from './guard/superadmin.guard';
 import { ProjectsComponent } from './features/projects/projects.component';
 import { ProjectDetailComponent } from './features/project-detail/project-detail.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component'; // Assurez-vous d'importer votre composant PageNotFound
-import { TeamsComponent } from './features/teams/teams.component';
 import { TeamDetailComponent } from './features/team-detail/team-detail.component';
 import { UserProfileComponent } from './features/user-profile/user-profile.component';
 import { CollaboratorsComponent } from './features/collaborators/collaborators.component';
 import { ResetPasswordComponent } from './features/reset-password/reset-password.component';
+import { TeamsComponent } from './features/teams/teams.component';
 /*
 import { TeamsComponent } from './features/teams/teams.component';
 

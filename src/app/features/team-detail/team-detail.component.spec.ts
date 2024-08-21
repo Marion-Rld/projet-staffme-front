@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TeamDetailComponent } from './team-detail.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
@@ -7,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Team } from '../../models/team.model';
 import { User } from '../../models/user.model';
 import { of } from 'rxjs';
+import { Project } from '../../models/project.model';
 
 describe('TeamDetailComponent', () => {
   let component: TeamDetailComponent;
@@ -42,7 +42,6 @@ describe('TeamDetailComponent', () => {
       _id: '1',
       name: 'Team 1',
       users: [{ _id: 'user1' }, { _id: 'user2' }] as User[],
-      projects: [],
     };
 
     const mockUsers: User[] = [
@@ -64,25 +63,42 @@ describe('TeamDetailComponent', () => {
       },
     ];
 
+    const mockProjects: Project[] = [
+      {
+        _id: '1',
+        name: 'Project 1',
+        description: 'Description 1',
+        status: 'InProgress',
+        startDate: new Date(),
+        endDate: new Date(),
+        budget: 10000,
+        teams: [mockTeam],
+      },
+    ];
+
     spyOn(component['teamService'], 'getTeamById').and.returnValue(
       of(mockTeam)
     );
     spyOn(component['userService'], 'getUsersByIds').and.returnValue(
       of(mockUsers)
     );
+    spyOn(component['projectService'], 'getProjectsByTeamId').and.returnValue(
+      of(mockProjects)
+    );
 
     component.loadTeam('1');
 
     expect(component.team).toEqual(mockTeam);
     expect(component.teamUsers).toEqual(mockUsers);
+    expect(component.teamProjects).toEqual(mockProjects);
   });
 
   it('should return correct collaborators text', () => {
     component.team.users = [{ _id: 'user1' }, { _id: 'user2' }] as User[];
-  
+
     let text = component.getCollaboratorsText();
     expect(text).toBe('2 collaborateurs');
-  
+
     component.team.users = [{ _id: 'user1' }] as User[];
     text = component.getCollaboratorsText();
     expect(text).toBe('1 collaborateur');
@@ -91,30 +107,26 @@ describe('TeamDetailComponent', () => {
   it('should refresh team by calling loadTeam', () => {
     spyOn(component, 'loadTeam');
     component.team._id = '1';
-  
+
     component.refreshTeam();
-  
+
     expect(component.loadTeam).toHaveBeenCalledWith('1');
   });
-  
+
   it('should delete team and navigate back', () => {
     const mockTeam: Team = {
       _id: '1',
       name: 'Mock Team',
       users: [],
-      projects: []
     };
-  
+
     spyOn(component['teamService'], 'deleteTeam').and.returnValue(of(mockTeam));
     spyOn(component, 'goBack');
-  
+
     component.team._id = '1';
     component.deleteTeam();
-  
+
     expect(component['teamService'].deleteTeam).toHaveBeenCalledWith('1');
     expect(component.goBack).toHaveBeenCalled();
   });
-  
-  
-  
 });
