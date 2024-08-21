@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import {
   FormGroup,
   FormControl,
@@ -15,7 +16,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [MatInputModule, MatButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule],
+  imports: [MatInputModule, MatButtonModule, ReactiveFormsModule, CommonModule, HttpClientModule, MatIconModule],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
