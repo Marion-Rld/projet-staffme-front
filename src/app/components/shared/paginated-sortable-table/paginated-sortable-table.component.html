@@ -11,11 +11,19 @@
               {{ element[column] | date : "dd/MM/yyyy" }}
             </ng-container>
             <ng-template #nonDateCell>
-              <ng-container *ngIf="column !== 'teams'; else teamCell">
-                {{ element[column] }}
+              <ng-container *ngIf="column === 'description'; else otherCells">
+                <span class="description">
+                  {{ element[column] | slice : 0 : 50
+                  }}{{ element[column].length > 50 ? "..." : "" }}
+                </span>
               </ng-container>
-              <ng-template #teamCell>
-                {{ getTeamNames(element.teams) }}
+              <ng-template #otherCells>
+                <ng-container *ngIf="column !== 'teams'; else teamCell">
+                  {{ element[column] }}
+                </ng-container>
+                <ng-template #teamCell>
+                  {{ getTeamNames(element.teams) }}
+                </ng-template>
               </ng-template>
             </ng-template>
           </td>

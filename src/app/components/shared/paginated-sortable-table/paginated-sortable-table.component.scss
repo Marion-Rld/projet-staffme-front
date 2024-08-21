@@ -72,3 +72,13 @@ table {
   button:hover{
     background-color: lightblue;
   }
+
+  .description {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px; 
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
