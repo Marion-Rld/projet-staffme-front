@@ -75,10 +75,10 @@
       </li>
     </ul>
     <div class="item-logout">
-      <a (click)="logout()">
+      <a (click)="logout()" (keyup.enter)="logout()" tabindex="0">
         <mat-icon>logout</mat-icon>
         Déconnexion
-      </a>
+      </a>      
     </div>
   </div>
 </div>
