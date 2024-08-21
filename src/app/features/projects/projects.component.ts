@@ -8,7 +8,7 @@ import { AddButtonComponent } from '../../components/shared/add-button/add-butto
 import { ProjectService } from '../../services/project.service';
 import { Project } from '../../models/project.model';
 import { MatDialog } from '@angular/material/dialog';
-import { ProjectDialogComponent } from '../../components/projects/project-dialog/project-dialog.component'; 
+import { ProjectDialogComponent } from '../../components/projects/project-dialog/project-dialog.component';
 import { Team } from '../../models/team.model';
 import { TeamService } from '../../services/team.service';
 
@@ -46,13 +46,19 @@ export class ProjectsComponent implements OnInit {
     teams: 'Équipes',
   };
 
+  translatedStatuses: { [key: string]: string } = {
+    completed: 'Terminé',
+    'in progress': 'En cours',
+    planned: 'Planifié',
+  };
+
   dataSource = new MatTableDataSource<Project>([]);
   teams: Team[] = [];
 
   constructor(
     private teamService: TeamService,
     private projectService: ProjectService,
-    public dialog: MatDialog,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +68,10 @@ export class ProjectsComponent implements OnInit {
 
   loadProjects(): void {
     this.projectService.getProjects().subscribe((projects) => {
+      projects.forEach((project) => {
+        project.status =
+          this.translatedStatuses[project.status] || project.status;
+      });
       this.dataSource.data = projects;
     });
   }
@@ -90,10 +100,10 @@ export class ProjectsComponent implements OnInit {
   }
 
   openCreateProjectDialog(): void {
-    const dialogRef = this.dialog.open(ProjectDialogComponent, { 
+    const dialogRef = this.dialog.open(ProjectDialogComponent, {
       width: '800px',
       panelClass: 'custom-modal',
-      data: { project: null } 
+      data: { project: null },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
