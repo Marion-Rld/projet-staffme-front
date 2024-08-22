@@ -37,4 +37,47 @@ describe('TeamDialogComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should initialize form with default values in create mode', () => {
+    component.isEditMode = false;
+    component.ngOnInit();
+    expect(component.teamForm.value).toEqual({
+      name: '',
+      requiredSkills: [],
+      users: [],
+    });
+  });
+
+  it('should filter users based on selected skills', () => {
+    const mockUsers = [
+      {
+        _id: '1',
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        password: 'password456',
+        role: 'developer',
+        skills: [{ skill_id: 'skill1', level_id: '1' }],
+      },
+      {
+        _id: '2',
+        firstName: 'Jane',
+        lastName: 'Doe',
+        email: 'jane.doe@example.com',
+        password: 'password456',
+        role: 'designer',
+        skills: [{ skill_id: 'skill2', level_id: '1' }],
+      },
+    ];
+
+    component.users = mockUsers;
+    component.filterUsersBySkills(['skill1']);
+    expect(component.filteredUsers).toEqual([mockUsers[0]]);
+
+    component.filterUsersBySkills(['skill2']);
+    expect(component.filteredUsers).toEqual([mockUsers[1]]);
+
+    component.filterUsersBySkills([]);
+    expect(component.filteredUsers).toEqual(mockUsers);
+  });
 });
