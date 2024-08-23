@@ -20,7 +20,7 @@ name: Snyk Security
 
 on:
   push:
-    branches: ["dev" ]
+    branches: ["dev"]
   pull_request:
     branches: ["dev"]
 
@@ -36,6 +36,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.12.2
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Jasmine/Karma tests
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
+
       - name: Set up Snyk CLI to check for security issues
         # Snyk can be used to break the build when it detects security issues.
         # In this case we want to upload the SAST issues to GitHub Code Scanning
@@ -51,7 +63,7 @@ jobs:
           # This is where you will need to introduce the Snyk API token created with your Snyk account
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-       # Authenticate to Snyk
+        # Authenticate to Snyk
       - name: Authenticate Snyk
         run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
