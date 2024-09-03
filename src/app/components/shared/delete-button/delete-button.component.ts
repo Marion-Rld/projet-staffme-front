@@ -20,7 +20,7 @@ export class DeleteButtonComponent {
 
   openConfirmDialog(): void {
     const dialogRef = this.dialog.open(DeleteConfirmationDialogComponent, {
-      width: '250px',
+      width: '360px',
       data: { itemType: this.itemType },
     });
 
@@ -35,17 +35,48 @@ export class DeleteButtonComponent {
 @Component({
   selector: 'app-delete-confirmation-dialog',
   template: `
-    <h1 mat-dialog-title>Confirmer la suppression</h1>
-    <div mat-dialog-content>
-      <p>Êtes-vous sûr de vouloir supprimer cet {{ data.itemType }} ?</p>
-    </div>
-    <div mat-dialog-actions>
-      <button mat-button (click)="onCancel()">Annuler</button>
-      <button mat-button (click)="onConfirm()" cdkFocusInitial>
-        Confirmer
-      </button>
+    <div class="container">
+      <h1 mat-dialog-title>Confirmer la suppression</h1>
+      <div mat-dialog-content>
+        <p>Êtes-vous sûr de vouloir supprimer cet {{ data.itemType }} ?</p>
+      </div>
+      <div mat-dialog-actions>
+        <button mat-button (click)="onCancel()">Annuler</button>
+        <button
+          class="validate-button"
+          mat-button
+          (click)="onConfirm()"
+          cdkFocusInitial
+        >
+          Confirmer
+        </button>
+      </div>
     </div>
   `,
+  styles: [
+    `
+      .container {
+        border-radius: 8px;
+        padding: 0 10px 20px 10px;
+      }
+
+      mat-dialog-actions {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        button {
+          margin: 0 10px;
+          text-transform: uppercase;
+        }
+
+        .validate-button {
+          background-color: #0b4948;
+          color: white;
+        }
+      }
+    `,
+  ],
 })
 export class DeleteConfirmationDialogComponent {
   constructor(
